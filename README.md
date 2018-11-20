@@ -9,5 +9,5 @@ The **./app** folder contains all the necessary data for building a project in A
 - **./app/src/main/res** - all project resources (icons, images, ...)
 
 ### Glance to us:
-- Site: https://skinfans.com
+- Site: https://skin.fans
 - Twitter: https://twitter.com/skinfans
