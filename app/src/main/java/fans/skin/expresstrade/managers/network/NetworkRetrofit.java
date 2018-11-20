@@ -235,34 +235,8 @@ public class NetworkRetrofit {
                     }
 
                     break;
-                // Bad Methods (некорректный запрос)
-//                case 400:
-//                case 401:
-//                case 403:
-//
-//                    // для дебагинга
-//                    App.logManager.debug("400");
-//
-//                    try {
-//                        App.logManager.debug(response.errorBody().string());
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    try {
-//                        ErrorModel error = (ErrorModel) retrofit
-//                                .responseConverter(ErrorModel.class, new Annotation[0])
-//                                .convert(response.errorBody());
-//                        networkCallback.on400(error);
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    break;
-//                case 400:
-//                    App.logManager.error("ВНИМАНИЕ! 'Unauthorized'! Такого ответа не должно быть");
 
-//                    break;
-                // 403 Forbidden / Нет доступа к ресурсам. То есть если не верный ACCESS_TOKEN
+                // 403 Forbidden / No access to resources. That is, if not the correct ACCESS_TOKEN
                 case 400:
                 case 401:
                 case 403:
@@ -281,7 +255,7 @@ public class NetworkRetrofit {
                         e.printStackTrace();
                     }
                     break;
-                // Internal server error (внутренняя ошибка сервера)
+                // Internal server error
                 case 500:
                 case 502:
                 case 503:
@@ -295,7 +269,7 @@ public class NetworkRetrofit {
         public void onFailure(Throwable t) {
             // onNE
 
-            // FIXME ПАРСИТЬ ОТВЕТ И ПЕРЕДАВАТЬ НУЖНЫЙ СТАТУС
+            // FIXME PARALL ANSWER AND TRANSFER NECESSARY STATUS
             logManager.error("====");
             logManager.error(t.getMessage());
             logManager.error("====");

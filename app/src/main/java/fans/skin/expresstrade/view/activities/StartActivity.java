@@ -9,9 +9,6 @@ import fans.skin.expresstrade.view.*;
 
 import static fans.skin.expresstrade.App.logManager;
 
-/**
- * Отвечает за запуск активити по умолчанию.
- */
 public class StartActivity extends AppActivity {
     // =============================================================================================
     // LIFECYCLE
@@ -26,7 +23,7 @@ public class StartActivity extends AppActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
-        // Выбираем активити и запускаем
+        // Select Activate and Run
         boolean isAuthorize = App.accountModule.isAuthorized;
 
         if (!isAuthorize) {

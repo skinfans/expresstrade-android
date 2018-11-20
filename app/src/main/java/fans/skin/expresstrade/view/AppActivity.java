@@ -20,8 +20,8 @@ public class AppActivity extends AppCompatActivity {
 
     protected Object busEventListener;
 
-    // Список лейаутов. Это дочерние контейнеры активити, жизненый цикл которых, события и прочее
-    // зависит от родителя, который передает в него все события
+    // List of layouts. These are child activation containers, the life cycle of which,
+    // events and so on depends on the parent who sends all events to it.
     public HashMap<String, AppLayout> appLayouts = new HashMap<>();
 
     // =============================================================================================
@@ -36,7 +36,7 @@ public class AppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Скрываем бар навигации
+        // Hide the navigation bar
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
@@ -44,8 +44,8 @@ public class AppActivity extends AppCompatActivity {
         for (String layoutName : this.appLayouts.keySet())
             this.appLayouts.get(layoutName).onCreate();
 
-        // Подписываем родительский класс на события
-        // Во всех дочерних активити будут эти события. При надобности можно переопределить
+        // We subscribe the parent class to events in all child activites that these events will be.
+        // If necessary, you can override
         busEventListener = new Object() {
             @Subscribe
             public void on(final OnEventModel object) {
@@ -135,7 +135,7 @@ public class AppActivity extends AppCompatActivity {
     // EVENT METHODS
     // =============================================================================================
 
-    // Запрос прошел кодом 200/400
+    // The request was passed with the code 200/400
     public void onEvent(OnEventModel object) {
         // layout event
         for (String layoutName : this.appLayouts.keySet()) {
@@ -143,8 +143,8 @@ public class AppActivity extends AppCompatActivity {
         }
     }
 
-    // FIXME: удалить
-    // Запрос не прошел и получили ошибку 500 или ошибку соединения
+    // FIXME: do remove
+    // Request failed and received error 500 or connection error
     public void onError(ErrorModel object) {
     }
 }

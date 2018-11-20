@@ -18,8 +18,8 @@ public class ArrayUtils {
     }
 
     public static <T> List<T> stringToArray(List s, Class<T[]> clazz) {
-        // Приходится применять такую форму преобразования при получении данных Gson,
-        // из-за того, что компилятор очищает дженерики. То есть пельзя указать параметризированный тип
+        // You have to use this form of conversion when retrieving Gson data, due
+        // to the fact that the compiler clears the generics. That is, you cannot specify a parameterized type.
         return Arrays.asList(new Gson().fromJson(s.toString(), clazz));
     }
 }

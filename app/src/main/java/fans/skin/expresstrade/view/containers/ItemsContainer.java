@@ -18,15 +18,6 @@ import fans.skin.expresstrade.view.adapters.*;
 
 import java.util.*;
 
-/**
- * SwinesContainer - в прошлом SwinesLoader
- * <p/>
- * Было логично называть лоадером до момента, когда этот клас стал выполнять методы,
- * связанные не только с загрузкой свайнов, но и управлением ими.
- * По этому Контейнер лучше описывает суть. Как блок свайнов с различными функциями их загрузки
- * и визуаллизации.
- */
-
 public class ItemsContainer extends AppContainer<List> implements LoaderManager.LoaderCallbacks<List> {
     // =============================================================================================
     // VIEWERS
@@ -61,8 +52,8 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
     public Integer appId = 1;
 
     public int page = 0;
-    public boolean isLoading = false; // Если происходит загрузка на данный момент
-    public boolean isLoadEnd = false; // Если была загружена последняя страница. Больше материалов нету
+    public boolean isLoading = false; // If there is a download at the moment
+    public boolean isLoadEnd = false; // If the last page was loaded. No more materials
 
     // =============================================================================================
     // CONSTRUCTOR
@@ -150,13 +141,13 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
     // GENERAL METHODS
     // =============================================================================================
 
-    // Основной метод лоадера отвечающий за загрузку контент
+    // The main loader method is responsible for loading content
     public void doLoad() {
         setLoadingStatus(true);
         loaderManager.getLoader(0).forceLoad();
     }
 
-    // Устанвить обработчик события
+    // Set event handler
     public void setOnEventsListener(OnEventsListener onEventsListener) {
         this.onEventsListener = onEventsListener;
     }
@@ -165,14 +156,14 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         return onEventsListener;
     }
 
-    // Установить статус загрузки
+    // Set download status
     public void setLoadingStatus(boolean isLoading) {
         App.logManager.debug("setLoadingStatus " + isLoading);
         this.isLoading = isLoading;
         this.swipeRefresh.setEnabled(!isLoading);
     }
 
-    // Установить вью индикатора динамической подргузки контента
+    // Set the view of the dynamic content loading indicator
     public void setIndicatorView(View view) {
         this.indicator = view;
     }
@@ -187,12 +178,12 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         this.fragmentName = fragmentName;
     }
 
-    // Указываем модель инвентаря
+    // Specify inventory model
     public void setInventoryModel(InventoryModel model) {
         inventory = model;
     }
 
-    // Получить количество всех итемов лоадера
+    // Get the number of all loader items
     public int getItemCount() {
         return itemsAdapter.getItemCount();
     }
@@ -201,7 +192,7 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         return layoutManager.findFirstVisibleItemPositions(null)[0] == 0;
     }
 
-    // Получить объект итема по его ID
+    // Get object by item ID
     public ItemModel.Item getItemById(String swine_id) {
         for (Object el : itemsAdapter.data) {
             ItemModel.Item item = (ItemModel.Item) el;
@@ -210,15 +201,15 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         return null;
     }
 
-    // Получить вью итема по его ID
+    // Get the view item by its ID
     public View getViewById(String swine_id) {
         return recyclerView.findViewWithTag(swine_id);
     }
 
     public void doResetSpace() {
-        // Обнуляем переменные, т.к. при свайпе и переходе в другой фрагмент в (MainFragment)
-        // превью разворачивается в компактный вид. при переходе обратно в текущий фрагмент,
-        // hidingScrollListener думает, что контент уже растянут
+        // Reset the variables, because when you swipe and move to another fragment in
+        // (MainFragment), the preview unfolds into a compact view. when going back
+        // to the current snippet, hidingScrollListener thinks the content is already stretched
         hidingScrollListener.doReset();
     }
 
@@ -233,7 +224,7 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
     // EVENT METHODS
     // =============================================================================================
 
-    // Все действия выполняемые в бэкграунде
+    // All actions performed in the background
     @Override
     public List loadInBackground() {
         App.logManager.debug("loadInBackground");
@@ -243,17 +234,17 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         return list;
     }
 
-    // Создание лоадера
+    // Create loader
     @Override
     public Loader<List> onCreateLoader(int id, Bundle args) {
         App.logManager.debug("onCreateLoader");
         return this;
     }
 
-    // Лоадер отработал и возвращает значение
+    // Loader worked and returns value
     @Override
     public void onLoadFinished(Loader<List> loader, List data) {
-        // loader равняется null только тогда, когда мы выполняем метод вручную при отсутствии интернета
+        // loader equals null only when we run the method manually in the absence of the Internet
 
         App.logManager.debug("onLoadFinished " + isLoading);
         if ((!isLoading && loader != null) || data == null) return;
@@ -264,11 +255,11 @@ public class ItemsContainer extends AppContainer<List> implements LoaderManager.
         isLoadEnd = data.size() == 0;
 
         if (loader == null || page == 0) {
-            App.logManager.debug("Обновляем предметы");
+            App.logManager.debug("Update items");
             itemsAdapter.updateData(data);
             itemsAdapter.notifyDataSetChanged();
         } else {
-            App.logManager.debug("Добавляем предметы");
+            App.logManager.debug("Add items");
             itemsAdapter.pushData(data);
             itemsAdapter.notifyItemRangeInserted(itemsAdapter.getItemCount(), data.size());
         }

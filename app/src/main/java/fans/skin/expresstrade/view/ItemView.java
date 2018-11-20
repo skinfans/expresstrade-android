@@ -105,7 +105,7 @@ public class ItemView extends LinearLayout implements View.OnTouchListener {
         this.view.setOnTouchListener(this);
     }
 
-    // Установить статус выделения
+    // Set selection status
     public void setSelectState(boolean state, boolean isAnim) {
         if (isSelectState == state) return;
         isSelectState = state;
@@ -120,7 +120,7 @@ public class ItemView extends LinearLayout implements View.OnTouchListener {
     }
 
 
-    // Выбрать предмет
+    // Select item
     public void setSelection(boolean state, boolean isAnim) {
         if (isSelected == state) return;
         isSelected = state;
@@ -150,7 +150,7 @@ public class ItemView extends LinearLayout implements View.OnTouchListener {
         view.animate().scaleY(state ? scale : 1f).setStartDelay(0).setDuration(80).start();
     }
 
-    // Анимация выделения предмета
+    // Item Highlight Animation
     private void setScaleBounceCycle() {
         setScaleBounce(true);
 

@@ -46,14 +46,14 @@ public class AuthActivity extends AppActivity {
             @Override
             public void onClick(View v) {
 
-                // Показываеть лоадер
+                // Show loader
                 button.setLoaderVisible(true);
 
                 App.logManager.debug("START WEBVIEW");
 
                 final Dialog dialog = App.dialogViewer.createAuthWebview(App.authActivity);
 
-                // Событие отмены диалога
+                // Dialog event
                 dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
@@ -88,24 +88,24 @@ public class AuthActivity extends AppActivity {
 
                         view.loadUrl(url);
 
-                        // Отлично, авторизовались
+                        // Ok, logged in
                         if (url.contains("state") && url.contains("code")) {
                             emptyLoginView();
 
                             logManager.debug("CODE = " + url);
 
-                            // Получаем секрет
+                            // We get the secret
                             String[] arr = url.split("=");
                             String code = arr[arr.length - 1];
                             code = code.substring(0, code.length() - 1);
 
-                            // Отправляем код на получение токена доступа
+                            // We send the code to receive the access token
                             accountModule.reqGetAccessToken(code);
                             dialog.cancel();
                             isLogged = true;
                         }
 
-                        // Ошибка
+                        // Mistake
                         if (url.contains("state") && url.contains("error")) {
                             emptyLoginView();
                             dialog.cancel();
@@ -120,9 +120,7 @@ public class AuthActivity extends AppActivity {
                         super.onPageFinished(view, url);
                         App.logManager.debug("onPageFinished " + url);
 
-
-                        // Если авторизация через стим прошла успешно, повторно открываем страницу
-                        // авторизации приложения
+                        // If authorization through Steam was successful, re-open the application authorization page
                         if ((url.contains("loc=login_migrate") && url.contains("steamcommunity")) ||
                                 url.contains("loc=logout"))
                             view.loadUrl(authUrl);
@@ -132,7 +130,7 @@ public class AuthActivity extends AppActivity {
         });
 
 
-        // Анимации
+        // Animations
         llLogos.animate().setStartDelay(500).setDuration((long) (500)).translationY(-50 * App.display.density).start();
         imgLogoWax.animate().setStartDelay(800).alpha(1f).setDuration((long) (500)).start();
         button.animate().setStartDelay(1150).alpha(1f).setDuration((long) (500)).translationY(-20 * App.display.density).start();

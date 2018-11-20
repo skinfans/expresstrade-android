@@ -56,28 +56,28 @@ public class UsersModule {
 
     public void loadUsers() {
         try {
-            // Получаем объект таблицы
+            // get the table object
             Dao<UsersTable, String> usersTable = App.databaseManager.getTable(DatabaseManager.TableName.TABLE_USERS);
 
-            // Получаем все имеющиеся записи в БД
+            // get all the available records in the database
             List<UsersTable> models = usersTable.queryForAll();
 
-            // Заносим всех пользователей в таблицу
+            // bring all users to the table
             for(UsersTable user : models)
                 users.put(user.ops_id, user);
 
-            App.logManager.debug("Загружены пользователи из БД " + users.size());
+            App.logManager.debug("Uploaded users from the database" + users.size());
 
             if (users.size() != 0)
                 App.eventManager.doEvent(EventType.ON_DO_USERS_UPDATE_LIST);
 
         } catch (SQLException e) {
-            App.logManager.error("Ошибка загрузки списка юзеров из БД");
+            App.logManager.error("Error loading user list from DB");
             e.printStackTrace();
         }
     }
 
-    // Создать пользователя в БД
+    // Create user in DB
     public void createUser(UserModel.User user) {
         UsersTable model = new UsersTable();
         model.name = user.display_name;
@@ -93,7 +93,7 @@ public class UsersModule {
         if (user.uid != null && user.uid != 0)
             model.ops_id = user.uid;
 
-        App.logManager.debug("Создаем пользователя в БД");
+        App.logManager.debug("Create a user in the database");
 
         try {
             UsersTable el = users.get(model.ops_id);
@@ -103,25 +103,25 @@ public class UsersModule {
                     model.token = el.token;
 
 
-                // todo игнорим, так как нет смысла создавать по несколько раз юзера
+                // todo ignore since there is no point in creating a user several times
                 return;
             }
 
-            // Получаем объект таблицы
+            // get table object
             Dao<UsersTable, Long> usersTable = App.databaseManager.getTable(DatabaseManager.TableName.TABLE_USERS);
 
-            // Создаем запись
+            // create stuff
             usersTable.createOrUpdate(model);
             users.put(model.ops_id, model);
 
             App.eventManager.doEvent(EventType.ON_USERS_DATABASE_SAVED, model);
         } catch (SQLException e) {
             e.printStackTrace();
-            App.logManager.error("Ошибка создания пользователя в БД");
+            App.logManager.error("Error creating user in DB");
         }
     }
 
-    // Создать пользователя в БД
+    // Create user in DB
     public void createUser(ItemModel.User user) {
         UsersTable model = new UsersTable();
         model.ops_id = user.id;
@@ -129,7 +129,7 @@ public class UsersModule {
         model.avatar = user.avatar;
         model.token = user.token;
 
-        App.logManager.debug("Создаем пользователя в БД");
+        App.logManager.debug("Create a user in the database");
 
         try {
             UsersTable el = users.get(model.ops_id);
@@ -138,25 +138,25 @@ public class UsersModule {
                 if (model.token == null)
                     model.token = el.token;
 
-                // todo игнорим, так как нет смысла создавать по несколько раз юзера
+                // todo ignore since there is no point in creating a user several times
                 return;
             }
 
-            // Получаем объект таблицы
+            // Get the table object
             Dao<UsersTable, String> usersTable = App.databaseManager.getTable(DatabaseManager.TableName.TABLE_USERS);
 
-            // Создаем запись
+            // Create a stuff
             usersTable.createOrUpdate(model);
             users.put(model.ops_id, model);
 
             App.eventManager.doEvent(EventType.ON_USERS_DATABASE_SAVED, model);
         } catch (SQLException e) {
             e.printStackTrace();
-            App.logManager.error("Ошибка создания пользователя в БД");
+            App.logManager.error("Error creating user in DB");
         }
     }
 
-    // Установить состояние избранного
+    // Set favorite status
     public void setUserFeatureState(final Long ops_id, final boolean state) {
         try {
         new Thread(new Runnable() {
@@ -165,7 +165,7 @@ public class UsersModule {
                 App.logManager.debug("setUserFeatureState " + ops_id + " " + state);
 
                 try {
-                    // Получаем объект таблицы
+                    // get table object
                     Dao<UsersTable, String> usersTable = App.databaseManager.getTable(DatabaseManager.TableName.TABLE_USERS);
 
                     UsersTable user = users.get(ops_id);
@@ -173,26 +173,26 @@ public class UsersModule {
 
                     user.is_favorite = state;
 
-                    // Создаем запись
+                    // create stuff
                     usersTable.update(user);
 
-                    // Обновляем локально
+                    // local update
                     users.put(ops_id, user);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    App.logManager.error("Ошибка обновления статуса избранного пользователя в БД");
+                    App.logManager.error("Error updating the status of the selected user in the database");
                 }
 
             }
         }).start();
         } catch (Exception e) {
             e.printStackTrace();
-            App.logManager.error("Ошибка обновления статуса избранного пользователя в БД");
+            App.logManager.error("Error updating the status of the selected user in the database");
         }
     }
 
-    // Установить token трейд-юрла пользователя
+    // set trade-url
     public void setTradeUrl(final Long ops_id, final String token) {
         App.logManager.debug("setTradeUrl " + ops_id + " " + token);
         try {
@@ -200,7 +200,7 @@ public class UsersModule {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    // Получаем объект таблицы
+                    // get table object
                     Dao<UsersTable, String> usersTable = App.databaseManager.getTable(DatabaseManager.TableName.TABLE_USERS);
 
                     UsersTable user = users.get(ops_id);
@@ -208,28 +208,29 @@ public class UsersModule {
 
                     user.token = token;
 
-                    // Создаем запись
+                    // Create stuff
                     usersTable.update(user);
 
-                    // Обновляем локально
+                    // local update
                     users.put(ops_id, user);
 
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    App.logManager.error("Ошибка обновления token пользовтеля в БД");
+                    App.logManager.error("Error updating user token in db");
                 }
             }
         }).start();
         } catch (Exception e) {
             e.printStackTrace();
-            App.logManager.error("Ошибка обновления статуса избранного пользователя в БД");
+            App.logManager.error("Error updating the status of the selected user in the database");
         }
     }
 
     // =============================================================================================
     // REQUEST METHODS
     // =============================================================================================
-    // Получить предметы пользователя
+
+    // Get user items
     public void reqSearchUser(final Long ops_id, final String token) {
         App.logManager.debug("reqSearchUser");
 
@@ -246,17 +247,17 @@ public class UsersModule {
                 ResponseModel response = (ResponseModel) object;
 
                 if (response.status != 1) {
-                    logManager.error("API вернуло ошибку. " + response.message);
+                    logManager.error("API returned an error. " + response.message);
                     Toast.makeText(App.context, "No results.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Предметы пользователя
+                // user items
                 ItemModel.Items result = (ItemModel.Items) response.response;
                 ItemModel.User user = result.user_data;
                 user.token = token;
 
-                // Создать пользователя
+                // create user
                 createUser(user);
 
                 App.eventManager.doEvent(EventType.ON_USERS_SEARCH_USER_RECEIVED, ops_id);
@@ -277,7 +278,7 @@ public class UsersModule {
         });
     }
 
-    // Получить предметы пользователя
+    // Get user items
     public void reqGetItems(final Long ops_id, final Integer page, final Integer app_id, final List<ItemModel.Item> list) {
         App.logManager.debug("reqGetItems");
 
@@ -297,51 +298,46 @@ public class UsersModule {
                 ResponseModel response = (ResponseModel) object;
 
                 if (response.status != 1) {
-                    logManager.error("API вернуло ошибку. " + response.message);
+                    logManager.error("The API returned an error." + response.message);
                     App.eventManager.doEvent(EventType.ON_TRADE_GET_INVENTORY_NOT_RECEIVED, ops_id);
                     return;
                 }
 
-                // Предметы пользователя
+                // User Items
                 ItemModel.Items result = (ItemModel.Items) response.response;
                 List<ItemModel.Item> items = result.items;
 
-                // Добавить массив предметов с общий список
+                // Add an array of items with a common list
                 if (list != null)
                     list.addAll(items);
 
                 if (page == 1) {
                     ItemModel.User user = result.user_data;
 
-                    // Создать пользователя
+                    // create user
                     createUser(user);
                 }
 
-                // Если загрузили все страницы или только текущую
+                // If loaded all pages or only current
                 if (list == null || response.current_page == null || response.current_page >= response.total_pages) {
 
-                    // Если загрузили полностью инвентарь vgo, грузим стикеры
+                    // If you have loaded the vgo inventory completely, we will load the stickers
                     if (app_id == 1) {
-                        // response.current_page
-                        // Загружаем предметы дальше
                         reqGetItems(ops_id, 1, 12, list);
                         return;
                     }
 
-                    // Если загрузили полностью стикеры, грузим котов
+                    // If the stickers are fully loaded, we ship the cats
                     if (app_id == 12) {
-                        // response.current_page
-                        // Загружаем предметы дальше
                         reqGetItems(ops_id, 1, 7, list);
                         return;
                     }
 
-                    // Устанавливаем локально массив предметов
+                    // Set up a local array of objects
                     if (list != null)
                         App.accountModule.setLocalItems(inventory, list);
 
 //                    if (App.tradeModule.makeOffer != null) {
-//                        // Если
 //                        if (App.tradeModule.makeOffer.recipient_ops_id.equals(ops_id)) {
 //                            App.tradeModule.makeOffer.recipient_inventory = inventory;
 //                        }
@@ -351,7 +347,7 @@ public class UsersModule {
                 } else {
                     App.eventManager.doEvent(EventType.ON_TRADE_GET_INVENTORY_PAGE_LOADED, ops_id);
 
-                    // Загружаем предметы дальше
+                    // Load items further
                     reqGetItems(ops_id, response.current_page + 1, app_id, list);
                 }
             }
@@ -380,7 +376,7 @@ public class UsersModule {
             usersTable.delete(itemsDel);
 
         } catch (SQLException e) {
-            App.logManager.error("Ошибка очистки таблицы БД");
+            App.logManager.error("Error clearing DB table");
             e.printStackTrace();
         }
     }

@@ -17,7 +17,7 @@ public class AppPagerAdapter extends FragmentStatePagerAdapter {
     // CONSTRUCTOR
     // =============================================================================================
 
-    // Изменяем конструктор класса
+    // Modify class constructor
     public AppPagerAdapter(FragmentManager fm) {
         super(fm);
         fragments = new ArrayList<>();

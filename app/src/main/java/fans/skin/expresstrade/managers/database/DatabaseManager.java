@@ -46,7 +46,7 @@ public class DatabaseManager {
         }
     }
 
-    // Категории IDS
+    // Categories IDS
     public enum IdsName {
         TEST
     }
@@ -96,50 +96,50 @@ public class DatabaseManager {
     // OTHER METHODS
     // =============================================================================================
 
-    // Сохраняет список IDs
+    // Save ids list
     public void putIds(IdsName idsName, List<String> list, long index, boolean isReplace, boolean isTop) {
         try {
 
-            App.logManager.debug("Сохраняем IDS");
+            App.logManager.debug("Save IDS");
 
             Dao<IdsTable, String> idsTableDao = App.databaseManager.getTable(TableName.TABLE_IDS);
             IdsTable idsTable;
 
             String id = idsName.name() + (index != 0 ? ("_" + index) : "");
-            List<String> idsList = new ArrayList<>(); // полученные свайны
+            List<String> idsList = new ArrayList<>();
 
-            // Удалить ли текущую имеющуюся в базе строку из ids
+            // Whether to delete the current line in the database from ids
             if (!isReplace) {
                 idsTable = idsTableDao.queryForId(id);
                 if (idsTable != null)
                     idsList = new ArrayList<>(Arrays.asList(idsTable.ids.split(" ")));
             }
 
-            App.logManager.debug("Было " + idsList.size());
+            App.logManager.debug("Before " + idsList.size());
 
             for (String cid : list) {
-                if (idsList.indexOf(cid) != -1) continue; // Исключаем повторы
+                if (idsList.indexOf(cid) != -1) continue; // Exclude Repetitions
 
                 if (isTop) idsList.add(0, cid);
                 else idsList.add(cid);
             }
 
-            // Добавляем список в нужную категорию
+            // Add the list to the desired category
             idsTable = new IdsTable();
             idsTable.id = id;
             idsTable.ids = StringUtils.join(idsList, " ");
             idsTableDao.createOrUpdate(idsTable);
 
-            App.logManager.debug("Стало " + idsList.size());
+            App.logManager.debug("After " + idsList.size());
 
-            App.logManager.debug("Добавляем в категорию " + idsTable.id);
+            App.logManager.debug("Add to category " + idsTable.id);
         } catch (SQLException e) {
             e.printStackTrace();
             App.logManager.error(e.getMessage());
         }
     }
 
-    // Возвращает список ID's раздела
+    // Returns a list of section ID's
     public List<String> getIds(IdsName idsName, long index, int offset, int limit) {
         List<String> list = new ArrayList<>();
 

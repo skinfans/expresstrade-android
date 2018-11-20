@@ -47,8 +47,8 @@ public class FragmentViewer {
     // =============================================================================================
 
     public enum StartType {
-        START_PUSH, // добавить сверху, скрыв предыдущий
-        START_FIRST // добавить в самое начало удалив придыдущие
+        START_PUSH, // add on top, hiding the previous one
+        START_FIRST // add to the very beginning by deleting the previous ones
     }
 
     public enum AnimType {
@@ -83,12 +83,12 @@ public class FragmentViewer {
 
     public void setCurrentFragmentManager(int i) {
         this.currentFramentManager = i;
-        // обойти всех менеджеров и установить blur, кроме текущего
+        // bypass all managers and set blur except current
     }
 
     // ***
 
-    // Запустить фрагмент
+    // Run fragment
     public void start(final int id, final AppFragment fragment, final StartType startType, final AnimType animType) {
         final FragmentManager fragmentManager = getFragmentManager(id);
         if (fragmentManager == null || fragment == null) return;
@@ -97,7 +97,7 @@ public class FragmentViewer {
         FragmentTransaction fTrans = fragmentManager.beginTransaction();
         AppFragment currentFragment = getLast(id);
 
-        App.logManager.error("Создаем фрагмент " + id + " " + fragment.getFragmentName());
+        App.logManager.error("Create fragment " + id + " " + fragment.getFragmentName());
 
         try {
             switch (startType) {
@@ -113,7 +113,7 @@ public class FragmentViewer {
                     fTrans.add(container, fragment, fragment.getFragmentName().getCamelCase());
                     fTrans.addToBackStack(fragment.getFragmentName().getCamelCase());
 
-                    fTrans.commit(); // комитит в ui потоке
+                    fTrans.commit(); // commit in ui stream
                     setVisible(fragment, true);
                     break;
 
@@ -150,16 +150,16 @@ public class FragmentViewer {
         }
     }
 
-    // Закрыть последний фрагмент
+    // Close the last fragment
     public boolean popLast(int id, boolean anyway) {
         AppFragment fragment = getLast(id);
         if (fragment == null) return true;
 
-        // Если фрагмент не разрешает закрывать его, но игнорируем ответ, если anyway
+        // if the fragment does not allow to close it, but ignore the answer, if anyway
         if (!anyway && !fragment.onBackPressed())
             return false;
 
-        // Очищаем
+        // Clear
         final FragmentManager fragmentManager = getFragmentManager(id);
 
         if (fragmentManager.getBackStackEntryCount() > 0) {
@@ -176,13 +176,13 @@ public class FragmentViewer {
             });
         }
 
-        // В ответ - можно ли закрыть приложение при необходимости из-за отсутствия фрагментов
+        // In response, can the application be closed if necessary due to the absence of fragments
         return fragmentManager.getBackStackEntryCount() == 0;
     }
 
     // ***
 
-    // Установить статус фокуса
+    // Set Focus Status
     public void setFocus(int id, boolean isFocus) {
         AppFragment fragment = getLast(id);
         if (fragment == null) return;
@@ -190,7 +190,7 @@ public class FragmentViewer {
         else fragment.onBlur();
     }
 
-    // Установить статус видимости. Вызывается ТОЛЬКО из FragmentViewer
+    // Set visibility status. Called ONLY from FragmentViewer
     public void setVisible(AppFragment fragment, boolean isVisible) {
         if (fragment == null) return;
         if (isVisible) fragment.onVisible();
@@ -202,7 +202,7 @@ public class FragmentViewer {
     public AppFragment getLast(int id) {
         FragmentManager fragmentManager = getFragmentManager(id);
         if (fragmentManager == null) return null;
-        return (AppFragment) fragmentManager.findFragmentById(container); // возвращает последний фрагмент
+        return (AppFragment) fragmentManager.findFragmentById(container); // returns the last fragment
     }
 
     public AppFragment getByIndex(int id, int index) {

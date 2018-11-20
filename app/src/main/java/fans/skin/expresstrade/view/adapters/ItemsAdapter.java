@@ -95,7 +95,7 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
         return new MyHolder(v);
     }
 
-    // Заполнение виджетов View данными из элемента списка с номером i
+    // Populating View widgets with data from list item i
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
         updateSelectState();
@@ -109,7 +109,7 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
         float margin = (10 + 10 + 4 + 4) * App.display.density;
         float width = ((container.swipeRefresh.getWidth() - margin) / spanCount);
 
-        // Предмет не выделен, так как только выбран
+        // Item not selected, as only selected
         holder.item.setSelection(isSelected(holder.item.data.id));
         holder.item.setSelectState(isSelectionState);
 
@@ -119,7 +119,7 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
 //        if (item.color != null)
 //            holder.item.ivLineRarity.setBackgroundColor(Color.parseColor(item.color));
 
-        // Устанавливаем цену
+        // Set the price
         holder.item.tv_price.setText(CommonUtils.getFormattedAmount(item.suggested_price));
 
         Integer internal_app_id = holder.item.data.internal_app_id;
@@ -172,12 +172,12 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
 
                 App.logManager.debug("LOAD SVG " + url + " " + internal_app_id);
 
-                // Создаем класс билдера для обработки события загрузки и делаем магию
+                // Create a build class to handle the load event and do magic
                 RequestBuilder<PictureDrawable> requestBuilder = Glide.with(context)
                         .as(PictureDrawable.class)
                         .listener(new SvgSoftwareLayerSetter());
 
-                // Визуализируем
+                // Visualize
                 requestBuilder
                         .load(url)
                         .into(holder.item.preview_svg);
@@ -229,15 +229,15 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
         }
     }
 
-    // Выбрать предмет
+    // Select item
     public boolean selectItem(Long id, boolean state, boolean isAnim) {
         if (container.inventory == null) return true;
 
-        // Предмет уже имеет данный статус
+        // Item already has this status.
         if (isSelected(id) == state) return true;
 
-        // Добавляем предмет в массив выделенных
-        // Удаляем из массива выделенных
+        // Add the item to the selected array
+        // Remove from selected array
         if (state) {
             if (container.inventory.keysSelected + getSelectCount() + 1 > TradeModule.MAX_ITEMS) {
                 Toast.makeText(App.context, TradeModule.MAX_ITEMS + " items max", Toast.LENGTH_SHORT).show();
@@ -249,19 +249,19 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
             container.inventory.itemsSelected.remove(id);
         }
 
-        // Устанавливаем общее состояние выделения
+        // Set the overall selection state
         updateSelectState();
 
         MyHolder holder = holders.get(id);
         if (holder == null) return true;
 
-        // Выделить конкретный предмет
+        // Select a specific item
         holder.item.setSelection(state, isAnim);
 
         return true;
     }
 
-    // Установить состояние выбора элементов
+    // Set State Of Element Selection
     public void updateSelectState() {
         if (container.inventory == null) return;
 
@@ -269,11 +269,11 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
         if (isSelectionState == state) return;
         isSelectionState = state;
 
-        // Отправляем событие
+        // Send event
         App.eventManager.doEvent(isSelectionState ? EventType.ON_STATE_ITEMS_SELECTION_ENABLED :
                 EventType.ON_STATE_ITEMS_SELECTION_DISABLED);
 
-        // Обходим все товары и устанавливаем статус выделения
+        // Go around all the products and set the selection status.
         for(int i = 0; i < data.size(); i++) {
             ItemModel.Item item = (ItemModel.Item) data.get(i);
             MyHolder holder = holders.get(item.id);
@@ -281,42 +281,42 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
             if (holder == null)
                 continue;
 
-            // Устанавливаем состояние выделения
+            // Set Selection State
             holder.item.setSelectState(isSelectionState, true);
         }
     }
 
-    // Выделить все элементы/снять выделение всех элементов
+    // Select all elements / deselect all elements
     public void selectAll() {
         if (container.inventory == null) return;
 
         for(int i = 0; i < data.size(); i++) {
             ItemModel.Item item = (ItemModel.Item) data.get(i);
 
-            // Устанавливаем состояние выделения
+            // Set Selection State
             boolean isStop = !selectItem(item.id, true, true);
             if (isStop) break;
         }
 
-        // Отправляем событие
+        // Sending event
         App.eventManager.doEvent(EventType.ON_STATE_ITEMS_SELECT_CHANGE);
     }
 
-    // Отменить выделение
+    // Unselect all
     public void setCancelSelection() {
         if (container.inventory == null) return;
 
         for(int i = 0; i < data.size(); i++) {
             ItemModel.Item item = (ItemModel.Item) data.get(i);
 
-            // Устанавливаем состояние выделения
+            // Set selection state
             selectItem(item.id, false, true);
         }
 
-        // Очищаем массив
+        // clear the array
         container.inventory.itemsSelected.clear();
 
-        // Отправляем событие
+        // Send event
         App.eventManager.doEvent(EventType.ON_STATE_ITEMS_SELECT_CHANGE);
     }
 
@@ -338,7 +338,7 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
     public class MyHolder extends RecyclerView.ViewHolder {
         public ItemView item;
 
-        // Реализация класса MyHolder, хранящего ссылки на виджеты
+        // Implement the MyHolder class that stores widget references
         public MyHolder(View view) {
             super(view);
 
@@ -357,13 +357,13 @@ public class ItemsAdapter extends AppRecyclerAdapter<ItemsAdapter.MyHolder> {
                 @Override
                 public void onClick() {
 
-                    // Устанавливаем состояние выделения
+                    // Set Selection State
                     Long id = item.data.id;
                     boolean state = !isSelected(id);
 
                     selectItem(item.data.id, state, false);
 
-                    // Отправляем событие
+                    // Send event
                     App.eventManager.doEvent(EventType.ON_STATE_ITEMS_SELECT_CHANGE);
                 }
 

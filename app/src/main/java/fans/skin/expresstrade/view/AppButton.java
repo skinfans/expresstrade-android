@@ -77,7 +77,7 @@ public class AppButton extends RelativeLayout {
 
         pb.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
-        // По умолчанию
+        // Default
         setSize(buttonSize);
 
         if (buttonText != 0)

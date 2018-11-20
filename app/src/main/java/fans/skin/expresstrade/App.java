@@ -87,15 +87,15 @@ public class App extends Application {
 
         super.onCreate();
 
-        // Записываем контент текущего приложения
+        // Write the content of the current application
         context = getApplicationContext();
         display = context.getResources().getDisplayMetrics();
 
 
-        // Инициализируем БД
+        // Initializing DB
         App.databaseManager.initial(App.context);
 
-        // Инициализируем секрет пользователя
+        // Initialize user secret
         App.accountModule.initial();
     }
 

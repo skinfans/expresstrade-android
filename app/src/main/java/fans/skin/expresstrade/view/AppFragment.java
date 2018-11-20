@@ -22,8 +22,8 @@ public class AppFragment extends Fragment {
     private AppActivity activity;
     public Toolbar toolbar;
 
-    public boolean isFocus = false; // Если фрагмент виден пользователю на этой странице
-    public boolean isVisible = false; // Если фрагмент есть видимый (последний) на странице
+    public boolean isFocus = false; // If the fragment is visible to the user on this page.
+    public boolean isVisible = false; // If the fragment is visible (last) on the page
     public boolean isActive = false;
 
     public HashMap<String, AppLayout> appLayouts = new HashMap<>();
@@ -82,7 +82,7 @@ public class AppFragment extends Fragment {
         for (String layoutName : this.appLayouts.keySet())
             this.appLayouts.get(layoutName).onCreate();
 
-        // Подписываем на события
+        // Subscribe to events
         busEventListener = new Object() {
             @Subscribe
             public void on(final OnEventModel object) {
@@ -147,7 +147,7 @@ public class AppFragment extends Fragment {
     }
 
 
-    // Вызывается, когда фрагмент становится видимым, то есть в стеке фрагментов он находится вверху
+    // Called when a fragment becomes visible, that is, on the stack of fragments it is at the top
     public void onVisible() {
         isVisible = true;
 
@@ -176,7 +176,7 @@ public class AppFragment extends Fragment {
         }
     }
 
-    // Вызывается при onVisible и учитывается условие, что i контейнера совпадает с i ViewPager
+    // Called when onVisible and the condition that the container i matches the i ViewPager is taken into account
     public void onFocus() {
         if (isFocus) return;
         isFocus = true;
@@ -221,17 +221,17 @@ public class AppFragment extends Fragment {
         return isLast;
     }
 
-    // Добавить layout
+    // Add layout
     public void addLayout(String layoutName, AppLayout appLayout) {
         this.appLayouts.put(layoutName, appLayout);
     }
 
-    // Удалить layout
+    // Remove layout
     public void removeLayout(String layoutName) {
         this.appLayouts.remove(layoutName);
     }
 
-    // fixme спорный метод
+    // fixme controversial method
     public void setActivity(AppActivity activity) {
         this.activity = activity;
     }
@@ -269,7 +269,7 @@ public class AppFragment extends Fragment {
     }
 
     public boolean onBackPressed() {
-        return true; // Разрашение на закрытие этого фрагмента
+        return true; // Permission to open this fragment
     }
 
     protected boolean isDisplayStatusbar() {

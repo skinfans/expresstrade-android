@@ -63,7 +63,7 @@ public class ServiceModule {
         query.add(Param.VERSION, App.BUILD_VERSION);
         query.add(Param.ACCESS_TOKEN, App.prefManager.getString(PrefKey.ACCOUNT_TOKEN_ACCESS));
 
-        // TODO запрос
+        // TODO request
         App.nwManager.req(MethodType.SEND_LOG, query, new NetworkCallback() {
             @Override
             public void on200(Object object) {

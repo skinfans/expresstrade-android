@@ -26,11 +26,10 @@ public class AppService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        App.logManager.info("Сервис запущен");
+        App.logManager.info("Service started");
 
         Timer autoUpdate = new Timer();
 
-        // Каждые 30 сек
         autoUpdate.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -38,7 +37,6 @@ public class AppService extends Service {
             }
         }, delayTime, 30000);
 
-        // Каждые 5 минут
         autoUpdate.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -46,7 +44,6 @@ public class AppService extends Service {
             }
         }, delayTime, intervalTime * 5);
 
-        // Каждые 15 минут
         autoUpdate.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -55,7 +52,6 @@ public class AppService extends Service {
         }, intervalTime * 15, intervalTime * 15);
 
 
-        // Каждые 30 минуты
         autoUpdate.schedule(new TimerTask() {
             @Override
             public void run() {

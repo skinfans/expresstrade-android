@@ -149,19 +149,19 @@ public class OffersAdapter extends AppRecyclerAdapter<OffersAdapter.MyHolder> {
 
             case STATE_DECLINED:
                 holder.offer.ll_state.setVisibility(View.VISIBLE);
-                holder.offer.tv_state_value.setText("Declined"); // Отклонено
+                holder.offer.tv_state_value.setText("Declined");
                 holder.offer.tv_state_value.setTextColor(App.context.getResources().getColor(R.color.red));
                 break;
 
             case STATE_EXPIRED:
                 holder.offer.ll_state.setVisibility(View.VISIBLE);
-                holder.offer.tv_state_value.setText("Expired"); // Таймаут
+                holder.offer.tv_state_value.setText("Expired");
                 holder.offer.tv_state_value.setTextColor(App.context.getResources().getColor(R.color.gray));
                 break;
 
             case STATE_CANCELED:
                 holder.offer.ll_state.setVisibility(View.VISIBLE);
-                holder.offer.tv_state_value.setText("Canceled"); // Отклонено отправителем
+                holder.offer.tv_state_value.setText("Canceled");
                 holder.offer.tv_state_value.setTextColor(App.context.getResources().getColor(R.color.gray));
                 break;
 
@@ -169,13 +169,13 @@ public class OffersAdapter extends AppRecyclerAdapter<OffersAdapter.MyHolder> {
             case STATE_EXPIRED_CASE_OPEN:
             case STATE_FAILED_CASE_OPEN:
                 holder.offer.ll_state.setVisibility(View.VISIBLE);
-                holder.offer.tv_state_value.setText("Invalid"); // Ошибка. Какой то товар недоступен
+                holder.offer.tv_state_value.setText("Invalid");
                 holder.offer.tv_state_value.setTextColor(App.context.getResources().getColor(R.color.red));
                 break;
 
             case STATE_PENDING_CASE_OPEN:
                 holder.offer.ll_state.setVisibility(View.VISIBLE);
-                holder.offer.tv_state_value.setText("Canceled"); // Отклонено отправителем
+                holder.offer.tv_state_value.setText("Canceled");
                 holder.offer.tv_state_value.setTextColor(App.context.getResources().getColor(R.color.blue));
                 break;
 
@@ -263,13 +263,13 @@ public class OffersAdapter extends AppRecyclerAdapter<OffersAdapter.MyHolder> {
         // ***
         public boolean isHeader;
 
-        // Заголовок
+        // title
         public ItemOffer(String text) {
             this.isHeader = true;
             this.string = text;
         }
 
-        // Пользователь
+        // item
         public ItemOffer(OfferModel.Offer offer) {
             this.isHeader = false;
             this.offer = offer;

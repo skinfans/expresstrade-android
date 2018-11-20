@@ -87,7 +87,7 @@ public class UsersAdapter extends AppRecyclerAdapter<UsersAdapter.MyHolder> {
                     .into(holder.user.iv_avatar);
 
 
-            // Устанавливаем состояние избранного
+            // Set the state of favorites
             holder.user.setFeaturedState(holder.user.data.is_favorite);
             holder.user.bt_change_link.setVisibility(item.user.token == null ? View.VISIBLE : View.GONE);
             holder.user.bt_select.setVisibility(item.user.token != null ? View.VISIBLE : View.GONE);
@@ -118,7 +118,7 @@ public class UsersAdapter extends AppRecyclerAdapter<UsersAdapter.MyHolder> {
         List<UsersTable> featureUsers = new ArrayList<>();
         List<UsersTable> lastUsers = new ArrayList<>();
 
-        // Формируем два массива
+        // We form two arrays
         for (int i = 0; i < data.size(); i++) {
             UsersTable user = (UsersTable) data.get(i);
 
@@ -164,13 +164,13 @@ public class UsersAdapter extends AppRecyclerAdapter<UsersAdapter.MyHolder> {
         // ***
         public boolean isHeader;
 
-        // Заголовок
+        // title
         public ItemUser(String text) {
             this.isHeader = true;
             this.string = text;
         }
 
-        // Пользователь
+        // user
         public ItemUser(UsersTable user) {
             this.isHeader = false;
             this.user = user;
@@ -196,10 +196,10 @@ public class UsersAdapter extends AppRecyclerAdapter<UsersAdapter.MyHolder> {
                     @Override
                     public void onFeatureChanged(boolean isFollow) {
 
-                        // Сохраняем состояние
+                        // save state
                         App.usersModule.setUserFeatureState(user.data.ops_id, isFollow);
 
-                        // Перерендириваем список
+                        // re-render data
                         container.doLoadData();
                     }
 

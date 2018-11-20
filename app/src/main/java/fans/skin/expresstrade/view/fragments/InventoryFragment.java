@@ -85,7 +85,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
     private Handler handler = new Handler();
 
-    // Инвентарь для отображения и работы с предметами
+    // Inventory for display and work with items
     private InventoryModel inventory = App.accountModule.inventory;
 
     private UsersTable recipientUser = null;
@@ -299,7 +299,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
         bt_filter_purple.setOnClickListener(this);
         bt_filter_blue.setOnClickListener(this);
 
-        // Устанавливаем обработку события
+        // Set event handling
         setOnTouchKeysPanel(ll_panel_keys);
 
         bt_create_offer = view.findViewById(R.id.bt_create_offer);
@@ -322,12 +322,12 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
                     }
                 }, 1000);
 
-                // Создаем новый оффер
+                // create new offer
                 App.dialogViewer.makeOffer(getChildFragmentManager());
             }
         });
 
-        // Кликнули "Назад"
+        // back click
         bt_user_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -335,7 +335,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
             }
         });
 
-        // Кликнули "Добавить в оффер"
+        // click (add to offer)
         bt_add_to_offer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -343,11 +343,11 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
             }
         });
 
-        // Визуализируем прячим панель фильтров. По умолчанию показываем.
+        // We visualize hiding the filter panel. By default, we show.
         boolean isFilterDisabled = App.prefManager.getBoolean(PrefKey.INV_FILTER_DISABLED);
         setFilterPanelVisible(!isFilterDisabled);
 
-        // Запрашиваем список предметов
+        // get items list
         loadItems();
 
 //        handler.postDelayed(new Runnable() {
@@ -374,7 +374,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
             }
         });
 
-        // Визуализируем прячим панель фильтров. По умолчанию показываем.
+        // Visualize the hidden filter panel. By default, we show.
         Integer lastAppId = App.prefManager.getInt(PrefKey.INV_APP_LAST);
         if (lastAppId != 0)
             appId = lastAppId;
@@ -423,7 +423,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
     private void updateStatePanel() {
         cap_no_items.setVisibility(itemsContainer.getItemCount() == 0 ? View.VISIBLE : View.GONE);
 
-        // Устанавливаем кол-во ключей
+        // Set the number of keys
         tv_keys_total.setText(inventory.keysCount.toString());
         tv_items_count.setText(itemsCount.toString());
 
@@ -437,10 +437,10 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 //        ll_title.setVisibility(isExist ? View.VISIBLE : View.GONE);
     }
 
-    // Запрашиваем список предметов
+    // Request a list of items
     private void loadItems() {
-        // Очищать только в нашем профиле. Если будем очищать в инвентаре партнера, то в оффере
-        // будут каждый раз при открытии инвентаря сбиваться все выбранные ранее предметы
+        // Clear only in our profile. If we clear in the partner’s inventory,
+        // then in the offer, every time you open the inventory, all previously selected items will be lost
         if (!isUser) App.accountModule.emptySelectInventory(inventory);
 
         App.accountModule.loadItems(inventory, 1);
@@ -452,7 +452,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
         itemsContainer.doLoad();
     }
 
-    // Указать ops_id юзера для загрузки инвентаря
+    // Specify the user ops_id to load inventory
     public void setUser(Long ops_id) {
         isUser = true;
         inventory = App.usersModule.inventory;
@@ -460,7 +460,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
 //        App.accountModule.emptySelectInventory(inventory);
 
-        // Нужно перерендерить окно оффера
+        // Specify the user ops_id to load inventory
 //        App.eventManager.doEvent(EventType.ON_DO_MAKE_OFFER_RENDER);
     }
 
@@ -484,7 +484,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
                 switch (event.getAction()) {
                     case ACTION_DOWN:
-                        // FIXME тут нужно позволять получать событие только при клике на панель
+                        // FIXME here should be allowed to receive the event only when clicking on the panel
 
                         App.eventManager.doEvent(EventType.ON_DO_PAGING_DISABLED);
                         App.eventManager.doEvent(EventType.ON_STATE_KEYS_SELECTION_ENABLED);
@@ -509,7 +509,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
                         panel_keys_scroll.setTranslationX(values[1]);
 
-                        // Говорим коэффициент
+                        // coefficient
                         setSelectKeysCoeff(k, false);
                         return true;
 
@@ -522,7 +522,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
                         values[2] = 0;
 
-                        // Рендерим
+                        // render
                         render(false);
 
 //                        if (!isOfferAvailable)
@@ -538,7 +538,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
         swipeRefresh.setOnTouchListener(listener);
     }
 
-    // Установить коэффициент кол-ва ключей
+    // Set coeff of number keys
     private void setSelectKeysCoeff(float k, boolean isUpdateBar) {
         k = Math.min(1, k);
         k = Math.max(0, k);
@@ -550,7 +550,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
             App.logManager.debug("setSelectKeysCoeff " + panel_keys_bar.getWidth() + " " + scrollKeysPosition);
         }
 
-        // Устанавливаем кол-во ключей
+        // Set the number of keys
         int count = Math.round(inventory.keysCount * k);
 
         inventory.keysSelected = count;
@@ -568,8 +568,8 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
     private void setKeysSelectedCount(int count) {
         int keysCount = inventory.keysCount;
 
-        // TODO нужно учесть, что после перезагрузки страницы часть ключей может пропасть,
-        // todo по этому при получении актуальных данных нужно обрезать число выбранных ключей до максимума
+        // TODO need to consider that after reloading the page, some of the keys may disappear,
+        // todo for this when getting actual data you need to cut the number of selected keys to the maximum.
         if (keysCount == 0) return;
 
         App.logManager.debug("setKeysSelectedCount " + count + " " + (float) keysCount);
@@ -605,10 +605,10 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
                 .resize((int) (40 * App.display.density), (int) (40 * App.display.density))
                 .into(iv_recipient_avatar);
 
-        // Создаем оффер
+        // create offer
         App.tradeModule.makeOffer(user.ops_id);
 
-        // Создаем новый оффер
+        // create new offer
         if (isMakeOfferSelected) {
             App.dialogViewer.makeOffer(getChildFragmentManager());
             isMakeOfferSelected = false;
@@ -626,7 +626,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
         App.logManager.debug("RENDER");
 
-        // Визуализируем предметы инвентаря
+        // Visualize inventory items
         if (isLoading && isNotify) {
 //            empty();
 
@@ -642,20 +642,20 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
         tv_inv_title.setVisibility(!isSelItems ? View.VISIBLE : View.GONE);
         tv_items_count.setVisibility(!isSelItems ? View.VISIBLE : View.GONE);
 
-        // Визуализируем кнопку закрытия
+        // Visualize the close button
 //        ll_title.setVisibility(!isSelItems ? View.VISIBLE : View.GONE);
         ll_select_title.setVisibility(isSelItems ? View.VISIBLE : View.GONE);
         bt_cancel.setVisibility(isSelItems ? View.VISIBLE : View.GONE);
 
-        // Установить кол-во выделенных кейсов
+        // Set the number of selected cases
         setKeysSelectedCount(inventory.keysSelected);
 
         tv_select_count.setText(inventory.itemsSelected.size() + "");
 
-        // Включить/выключить перезагрузку контента свайпом
+        // Enable / disable content reloading with a swipe
         swipeRefresh.setEnabled(!isSelItems);
 
-        // Получаем пользователя и визуализируем
+        // Get user and visualize
         if (isUser) {
             UsersTable user = App.usersModule.users.get(inventory.ops_id);
 
@@ -681,7 +681,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
         renderButtons();
     }
 
-    // Рендерим нужные кнопки
+    // render buttons
     public void renderButtons() {
 
         if (isUser) {
@@ -691,28 +691,28 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
             return;
         }
 
-        // Доступно ли создание оффера
+        // If offer creation is available
         isOfferAvailable = inventory.keysSelected != 0 ||
                 itemsContainer.itemsAdapter.getSelectCount() != 0 ||
                 recipientUser != null;
 
-        // Доступна ли конвертация
+        // Is conversion available
 //        isConvertAvailable = inventory.keysSelected == 0 &&
 //                itemsContainer.itemsAdapter.getSelectCount() != 0 &&
 //                recipientUser == null;
         isConvertAvailable = false;
 
-        // Устанавливаем визуал
+        // Install the visual
         bt_create_offer.setVisibility(isOfferAvailable ? View.VISIBLE : View.GONE);
         bt_convert.setVisibility(isConvertAvailable ? View.VISIBLE : View.GONE);
 
-        // Показать скрыть панель навигации ниже
+        // Show hide navigation bar below
         App.eventManager.doEvent(isOfferAvailable || isConvertAvailable ? EventType.ON_DO_NAVIGATION_INVISIBLE :
                 EventType.ON_DO_NAVIGATION_VISIBLE);
     }
 
     public void empty() {
-        // Очистить число выбранных ключей
+        // Clear the number of selected keys
         emptySelectKeys();
     }
 
@@ -758,7 +758,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
                 break;
         }
 
-        // Перезагрузить предметы
+        // Reload items
         itemsContainer.itemsAdapter.lastPosition = -1;
         itemsContainer.doLoad();
     }
@@ -807,7 +807,6 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
                 setRecipient(user);
 
-                // Отправляем событие на переключение экрана
                 App.eventManager.doEvent(EventType.ON_DO_SELECT_FRAME, FragmentViewer.FRAME_INVENTORY);
                 break;
 
@@ -827,7 +826,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
 
 //                App.dialogViewer.makeOffer(getChildFragmentManager());
 
-                // Выполняем запрос
+                // run request
                 App.tradeModule.reqSendOffer();
 
                 break;
@@ -859,7 +858,7 @@ public class InventoryFragment extends AppFragment implements View.OnClickListen
     @Override
     public boolean onBackPressed() {
 
-        // Если сейчас активен процесс выделение, отменяем выделение, вместо выхода из приложения
+        // If the selection process is now active, cancel the selection, instead of exiting the application
         if (itemsContainer.itemsAdapter.isSelectionState) {
             itemsContainer.itemsAdapter.setCancelSelection();
             return false;

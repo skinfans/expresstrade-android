@@ -21,23 +21,23 @@ public class TradeModule {
     // CONSTANTS
     // =============================================================================================
 
-    // Предложение активно, и получатель может принять его для обмена товарами
+    // The offer is active, and the recipient can accept it for the exchange of goods
     public static final int STATE_ACTIVE = 2;
-    // Получатель принял предложение и обмен предметами
+    // Recipient accepted the offer and exchange of items
     public static final int STATE_ACCEPTED = 3;
-    // Предложение истекло по причине неактивности
+    // Offer expired due to inactivity
     public static final int STATE_EXPIRED = 5;
-    // Отправитель отменил предложение
+    // Sender canceled offer
     public static final int STATE_CANCELED = 6;
-    // Получатель отклонил предложение
+    // Recipient rejected offer
     public static final int STATE_DECLINED = 7;
-    // Один из пунктов предложения больше недоступен, поэтому предложение было отменено автоматически
+    // One of the clauses of the sentence is no longer available, so the offer was automatically canceled.
     public static final int STATE_INVALID_ITEMS = 8;
-    // Торговое предложение было инициировано сайтом VCase, и оно ожидает подтверждения. Ключи пользователя были удалены, но позже могут быть восстановлены.
+    // The sales offer was initiated by the VCase site and it is awaiting confirmation. User keys have been deleted, but can be restored later.
     public static final int STATE_PENDING_CASE_OPEN = 9;
-    // Торговое предложение было инициировано сайтом VCase, и возникло сообщение об открытии ошибки из-за внутренних проблем. Никакие предметы не должны быть обменены.
+    // The sales offer was initiated by the VCase site, and a message appeared about the opening of an error due to internal problems. No items should be exchanged.
     public static final int STATE_EXPIRED_CASE_OPEN = 10;
-    // Торговое предложение было инициировано сайтом VCase, и нам не удалось создать элементы в блок-цепочке, поэтому ключи пользователя были возвращены.
+    // The sales offer was initiated by the VCase site, and we were unable to create items in the blockchain, so user keys were returned.
     public static final int STATE_FAILED_CASE_OPEN = 12;
 
     public static int MAX_ITEMS = 100; // todo
@@ -49,7 +49,7 @@ public class TradeModule {
 
     private Handler handler = new Handler();
 
-    // Принятые офферы и в ожидании завершения сделки
+    // Accepted offers and pending completion of the transaction
     public List<OfferModel.Offer> offers = new ArrayList<>();
 
     public MakeOfferModel makeOffer;
@@ -79,13 +79,13 @@ public class TradeModule {
     private void setData (List<OfferModel.Offer> list) {
         offers = list;
 
-        // Заносим в БД новых пользователей этих офферов
+        // Log in the database of new users of these offers
 
         HashMap<Long, UserModel.User> users = new HashMap<>();
 
         for (OfferModel.Offer offer : list) {
 
-            // Если это открытие дела - пропускаем. Интересуют только реальные люди
+            // If this is the opening of the case - skip it. Only real people are interested
             if (offer.is_case_opening) continue;
 
             UserModel.User recipient = offer.recipient;
@@ -94,7 +94,7 @@ public class TradeModule {
             recipient.last_time = offer.time_updated;
             sender.last_time = offer.time_updated;
 
-            // Добавляем в массивы пользователей
+            // Add to user arrays
             if (!users.containsKey(recipient.uid))
                 users.put(recipient.uid, recipient);
 
@@ -102,14 +102,14 @@ public class TradeModule {
                 users.put(sender.uid, sender);
         }
 
-        App.logManager.debug("Заносим в БД новых пользователей " + users.size());
+        App.logManager.debug("We bring in a DB of new users " + users.size());
 
-        // Создаем пользователей
+        // Create users
         for(Map.Entry<Long, UserModel.User> entry : users.entrySet()) {
             Long ops_id = entry.getKey();
             UserModel.User user = entry.getValue();
 
-            // Отправляем в БД
+            // Send to the database
             App.usersModule.createUser(user);
         }
 
@@ -131,23 +131,23 @@ public class TradeModule {
         return count;
     }
 
-    // Создание модели оффера
+    // Creating an offer model
     public void makeOffer(long recipient_ops_id) {
         MakeOfferModel offer = new MakeOfferModel();
 
-        // Сохраняем наши данные (отправителя)
+        // We save our data (sender)
         offer.sender_ops_id = USER_ID;
         offer.sender_inventory = App.accountModule.inventory;
 
-        // Указываем ops_id партнера
+        // Specify partner ops_id
         offer.recipient_ops_id = recipient_ops_id;
         offer.recipient_inventory = App.usersModule.inventory;
 
-        // Записываем оффер для создания
+        // Write an offer to create
         makeOffer = offer;
     }
 
-    // Создать оффер (отправить уже сформированных оффер)
+    // Create offer (send already formed offer)
     public void sendOffer() {
         handler.postDelayed(new Runnable() {
             @Override
@@ -166,7 +166,7 @@ public class TradeModule {
         reqGetOffers(null, code);
     }
 
-    // Получить офферы пользователя
+    // Get user offers
     public void reqGetOffers(String sort, final Integer code) {
         if (!App.eventManager.isInitialed) return;
 
@@ -184,11 +184,11 @@ public class TradeModule {
                 super.on200(object);
                 ResponseModel response = (ResponseModel) object;
 
-                // Предметы пользователя
+                // User Items
                 OfferModel.Offers result = (OfferModel.Offers) response.response;
                 List<OfferModel.Offer> list = result.offers;
 
-                // Установить данные
+                // Set Data
                 setData(list);
 
                 App.eventManager.doEvent(EventType.ON_TRADE_GET_OFFERS_RECEIVED, code);
@@ -203,7 +203,7 @@ public class TradeModule {
         });
     }
 
-    // Принять оффер
+    // Accept Offer
     public void reqAcceptOffer(Long offer_id, boolean is2FA) {
         NetworkQuery query = new NetworkQuery();
         query.add(Param.OFFER_ID, offer_id);
@@ -217,14 +217,14 @@ public class TradeModule {
                 super.on200(object);
                 ResponseModel response = (ResponseModel) object;
 
-                // Если оффер не был отправлен
+                // If the offer was not sent
                 if (response.status != 1) {
                     Toast.makeText(App.context, "Error confirm offer. " + response.status, Toast.LENGTH_SHORT).show();
                     App.eventManager.doEvent(EventType.ON_TRADE_CONFIRM_OFFER_ERROR);
                     return;
                 }
 
-                // Предметы пользователя
+                // User Items
                 OfferModel.Trade result = (OfferModel.Trade) response.response;
                 OfferModel.Offer offer = result.offer;
 
@@ -244,7 +244,7 @@ public class TradeModule {
     }
 
 
-    // Отменить оффер
+    // Cancel Offer
     public void reqCancelOffer(Long offer_id) {
         NetworkQuery query = new NetworkQuery();
         query.add(Param.OFFER_ID, offer_id);
@@ -255,14 +255,14 @@ public class TradeModule {
                 super.on200(object);
                 ResponseModel response = (ResponseModel) object;
 
-                // Если оффер не был отправлен
+                // If the offer was not sent
                 if (response.status != 1) {
                     Toast.makeText(App.context, "Error cancel offer. " + response.status, Toast.LENGTH_SHORT).show();
                     App.eventManager.doEvent(EventType.ON_TRADE_CANCEL_OFFER_ERROR);
                     return;
                 }
 
-                // Предметы пользователя
+                // User Items
                 OfferModel.Trade result = (OfferModel.Trade) response.response;
                 OfferModel.Offer offer = result.offer;
 
@@ -281,7 +281,7 @@ public class TradeModule {
         });
     }
 
-    // Отправить оффер
+    // Send offer
     public void reqSendOffer() {
         if (makeOffer == null) {
             Toast.makeText(App.context, "Offer not found.", Toast.LENGTH_SHORT).show();
@@ -304,7 +304,7 @@ public class TradeModule {
         List<Long> itemsToSend = App.accountModule.getTradeIds(makeOffer.sender_inventory);
         List<Long> itemsToReceive = App.accountModule.getTradeIds(makeOffer.recipient_inventory);
 
-        // Предметы, отправляемые нами
+        // to give
         if (itemsToSend.size() != 0) {
             String sendArrayString = itemsToSend.toString();
             String sendList = sendArrayString.substring(1, sendArrayString.length() - 1);
@@ -313,7 +313,7 @@ public class TradeModule {
             App.logManager.debug("sendList " + sendList + " CODE " + App.accountModule.get2FA());
         }
 
-        // Предметы, отправляемые нам
+        // to get
         if (itemsToReceive.size() != 0) {
             String receiveArrayString = itemsToReceive.toString();
             String receiveList = receiveArrayString.substring(1, receiveArrayString.length() - 1);
@@ -328,14 +328,14 @@ public class TradeModule {
                 super.on200(object);
                 ResponseModel response = (ResponseModel) object;
 
-                // Если оффер не был отправлен
+                // If the offer has not been sent
                 if (response.status != 1) {
                     Toast.makeText(App.context, "Error send offer. " + response.status, Toast.LENGTH_SHORT).show();
                     App.eventManager.doEvent(EventType.ON_TRADE_SEND_OFFER_ERROR);
                     return;
                 }
 
-                // Предметы пользователя
+                // User Items
                 OfferModel.Trade result = (OfferModel.Trade) response.response;
 
                 OfferModel.Offer offer = result.offer;

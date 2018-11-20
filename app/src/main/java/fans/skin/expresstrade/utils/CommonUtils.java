@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CommonUtils {
 
-    // Получить рандомный hash
+    // get random hash
     public static String getHash(Integer len) {
         String DATA = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random RANDOM = new Random();

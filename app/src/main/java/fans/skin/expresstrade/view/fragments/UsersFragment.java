@@ -70,16 +70,16 @@ public class UsersFragment extends AppFragment implements View.OnClickListener {
         usersContainer.setOnDataLoaderListener(new UsersContainer.OnDataEventsListener() {
             @Override
             public List onLoad() {
-                App.logManager.debug("Получили людей " + App.usersModule.users.size());
+                App.logManager.debug("Got people " + App.usersModule.users.size());
 
-                // Получаем все имеющиеся записи в БД
+                // Get all the available records in the database
                 List<UsersTable> models = new ArrayList<>();
 
-                // Заносим всех пользователей в таблицу
+                // Log all users to table
                 for(Map.Entry<Long, UsersTable> entry : App.usersModule.users.entrySet()) {
                     UsersTable user = entry.getValue();
 
-                    // Не добавляем нас
+                    // Do not add us
                     if (user.ops_id == App.USER_ID) continue;
 
                     models.add(user);
@@ -182,7 +182,7 @@ public class UsersFragment extends AppFragment implements View.OnClickListener {
         searchOpsId = ops_id;
         searchOpsToken = token;
 
-        // Устанавливаем текущего пользователя, которого ищем
+        // Set the current user we are looking for
         usersContainer.setCurrentSearchOpsId(ops_id);
 
         App.usersModule.reqSearchUser(ops_id, token);
@@ -197,7 +197,7 @@ public class UsersFragment extends AppFragment implements View.OnClickListener {
         return true;
     }
 
-    // Изменить ссылку
+    // Edit link
     private void doChangeLink(final Long ops_id) {
         App.logManager.debug("doChangeLink " + ops_id);
 

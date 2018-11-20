@@ -20,7 +20,7 @@ public class TryMe implements Thread.UncaughtExceptionHandler {
     // =============================================================================================
 
     public TryMe() {
-        oldHandler = Thread.getDefaultUncaughtExceptionHandler(); // сохраним ранее установленный обработчик
+        oldHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
     // =============================================================================================
@@ -41,7 +41,7 @@ public class TryMe implements Thread.UncaughtExceptionHandler {
 
         App.serviceModule.reqDebugPut(sw.toString());
 
-        if (oldHandler != null) // если есть ранее установленный...
-            oldHandler.uncaughtException(thread, throwable); // ...вызовем его
+        if (oldHandler != null)
+            oldHandler.uncaughtException(thread, throwable);
     }
 }

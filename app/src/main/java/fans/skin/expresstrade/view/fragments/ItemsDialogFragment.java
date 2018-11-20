@@ -143,7 +143,7 @@ public class ItemsDialogFragment extends AppDialogFragment implements OnClickLis
             }
         });
 
-        // Фиксируем размер окна
+        // Fix the window size
         swipeRefresh.getLayoutParams().height = App.display.heightPixels / 2;
         swipeRefresh.setRefreshing(false);
         swipeRefresh.setEnabled(false);
@@ -183,7 +183,7 @@ public class ItemsDialogFragment extends AppDialogFragment implements OnClickLis
         tv_title.setText(getResources().getString(title));
     }
 
-    // Установить предметы
+    // Install items
     public void setItems(List<ItemModel.Item> array) {
         items = array;
     }

@@ -6,7 +6,7 @@ import android.util.*;
 import android.view.*;
 
 /**
- * Включает в себя функции остановки скроллинга
+ * Includes scroll stop functions.
  */
 
 public class AppViewPager extends ViewPager {

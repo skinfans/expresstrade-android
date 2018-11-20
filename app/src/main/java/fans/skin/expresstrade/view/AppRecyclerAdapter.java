@@ -51,20 +51,6 @@ public abstract class AppRecyclerAdapter<T extends RecyclerView.ViewHolder> exte
         this.data.addAll(data);
     }
 
-/*
-    // кол-во элементов
-    @Override
-    public int getCount() {
-        return data.size();
-    }
-
-    // элемент по позиции
-    @Override
-    public Object getItem(int i) {
-        return data.get(i);
-    }
-*/
-
     @Override
     public T onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
@@ -75,7 +61,7 @@ public abstract class AppRecyclerAdapter<T extends RecyclerView.ViewHolder> exte
 
     }
 
-    // id по позиции
+    // position id
     @Override
     public long getItemId(int i) {
         return i;

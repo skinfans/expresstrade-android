@@ -72,7 +72,7 @@ public class InventoryDialogFragment extends AppDialogFragment implements OnClic
     // GENERAL METHODS
     // =============================================================================================
 
-    // Указать ops_id юзера для загрузки инвентаря
+    // Specify user ops_id to load inventory
     public void setUser(Long ops_id) {
         user_ops_id = ops_id;
     }

@@ -55,7 +55,7 @@ public class AppDialogFragment extends DialogFragment {
         for (String layoutName : this.appLayouts.keySet())
             this.appLayouts.get(layoutName).onCreate();
 
-        // Подписываем на события
+        // Subscribe to events
         busEventListener = new Object() {
             @Subscribe
             public void on(final OnEventModel object) {

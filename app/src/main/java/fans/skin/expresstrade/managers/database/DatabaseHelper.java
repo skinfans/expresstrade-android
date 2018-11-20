@@ -12,8 +12,8 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * DatabaseHelper используется для управления созданием и обновлением базы данных.
- * Этот класс также обеспечивает доступ к объектам DAO (объектам доступа к данным), используемые другими классами.
+ * DatabaseHelper is used to manage the creation and updating of the database.
+ * This class also provides access to DAO objects (data access objects) used by other classes.
  * DAO - Data Access Objects
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
@@ -35,12 +35,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     // EVENT METHODS
     // =============================================================================================
 
-    // Вызывается, когда база данных создается впервые. Обычно нужно вызвать createTable здесь, чтобы создать таблицы для хранения данных.
+    // Called when the database is first created. Usually you need to call createTable here to create tables for storing data.
     @Override
     public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
         try {
             Log.i(DatabaseHelper.class.getName(), "onCreate");
-            // Создаем новые таблицы
+            // Create new tables
             for (DatabaseManager.TableName table : DatabaseManager.TableName.values())
                 TableUtils.createTable(connectionSource, table.clazz);
 
@@ -50,12 +50,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    // Вызывается, когда приложение обновляется и имеет новый (высший) номер версии. Это позволяет управлять различными данными в соответствии с новым номером версии.
+    // Called when the application is updated and has a new (higher) version number. This allows you to manage different data according to the new version number.
     @Override
     public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
             Log.i(DatabaseHelper.class.getName(), "onUpgrade");
-            // Удаляем старые таблицы перед созданием новых
+            // Delete old tables before creating new ones.
             for (DatabaseManager.TableName table : DatabaseManager.TableName.values())
                 TableUtils.dropTable(connectionSource, table.clazz, true);
 
@@ -66,7 +66,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    // Закрытие соединения с БД и удаление кэшированных объектов DAO
+    // Closing a database connection and deleting cached DAO objects
     @Override
     public void close() {
         super.close();

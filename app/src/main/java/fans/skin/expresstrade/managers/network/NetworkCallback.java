@@ -22,61 +22,60 @@ public abstract class NetworkCallback {
     // EVENT METHODS
     // =============================================================================================
 
-    // Запрос выполнился. Пришел успешный ответ.
+    // Request fulfilled. Came a successful response.
     public void on200(Object object) {
         PostModel postModel = App.nwManager.get(key);
         if (postModel == null) return;
 
-        App.logManager.debug("Получен ответ: 200. " + key + " Method: " + method);
+        App.logManager.debug("Result: 200. " + key + " Method: " + method);
 
         App.nwManager.setConnectionStatus(true);
         App.nwManager.isError = false;
 
-        // Ответ получен. Удаляем запрос из стека.
+        // Response received. Remove the request from the stack.
         App.nwManager.remove(key);
     }
 
-    // Запрос выполнился. Пришел ответ об ошибке формата запроса.
+    // Request fulfilled. The answer came about the error format request.
     public void on400(ErrorModel error) {
         PostModel postModel = App.nwManager.get(key);
         if (postModel == null) return;
 
-        App.logManager.debug("Получен ответ: 400. Key: " + key + " Method: " + method + " Message: " + error.message + " " + error.error_msg);
+        App.logManager.debug("Result: 400. Key: " + key + " Method: " + method + " Message: " + error.message + " " + error.error_msg);
 
         App.nwManager.setConnectionStatus(true);
         App.nwManager.isError = false;
 
-        // Ответ получен. Удаляем запрос из стека.
+        // Answer received. Remove the request from the stack.
         App.nwManager.remove(key);
     }
 
-    // Запрос выполнился. Пришел ответ об ошибке авторизации пользователя.
+    // Request fulfilled. The answer came about the user authentication error.
     public void on403(ErrorModel error) {
         /**
-         * Для методов, которые требуют обязательный access_token, переопределять этот метод (401)
-         * и отправлять соответствующее событие
+         * For methods that require mandatory access_token, override
+         * this method (401) and send the corresponding event
          */
 
         PostModel postModel = App.nwManager.get(key);
         if (postModel == null)
             return;
 
-        App.logManager.debug("Получен ответ: 401 " + key + " Method: " + method + " " + error.error);
+        App.logManager.debug("Result: 401 " + key + " Method: " + method + " " + error.error);
 
         App.nwManager.setConnectionStatus(true);
         App.nwManager.isError = false;
 
-        // Выполняем стандартную процедуру восстановления токена для этой ситуации.
-
-        // Устанавливаем статус выполнения запроса
+        // Perform the standard token recovery procedure for this situation.
+        // Set the request execution status
         App.nwManager.setStatus(key, StatusCode.STATUS_403);
 
         String access_token = App.prefManager.getString(PrefKey.ACCOUNT_TOKEN_ACCESS);
         String refresh_token = App.prefManager.getString(PrefKey.ACCOUNT_TOKEN_REFRESH);
 
-        // Останавливаем выполнение метода, если на данный момент происходит обновление токенов
+        // Stop the execution of the method if tokens are currently being updated.
         if (access_token != null && App.accountModule.isUpdatingTokens) {
-            App.logManager.info("Ошибка повторной попытки запроса на обновление ключей. На данный момент уже происхоит обновление токенов");
+            App.logManager.info("Failed to retry key update request. Tokens are already updated");
             return;
         }
 
@@ -87,32 +86,32 @@ public abstract class NetworkCallback {
             (new Handler()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    App.logManager.debug("Нужно получить новый токен доступа");
+                    App.logManager.debug("Need to get a new access token");
 
-                    // Перезагрузить токены доступа
+                    // Reload access tokens
                     App.accountModule.reqGetRefreshToken();
                 }
             }, 1500);
         }
     }
 
-    // Запрос не выполнился. Ошибка сервера.
+    // The request failed. Server error.
     public void onError(StatusCode status) { // 500, 501, 502, 503, NE, OTHER
         PostModel postModel = App.nwManager.get(key);
         if (postModel == null)
             return;
 
-        App.logManager.debug("После всех мучительных повторений, вызываем коллбек " + status.name());
+        App.logManager.debug("service method. do not override. Use onError " + status.name());
 
     }
 
     // 500, 501, 502, 503, NE, OTHER
-    public void onFailure(StatusCode status) { // служебный метод. не оверрайдить. Использовать onError
-        // Метод отвечает за перезагрузку запроса
+    public void onFailure(StatusCode status) { // service method. do not override. Use onError
+        // The method is responsible for reloading the request.
 
         App.nwManager.isError = false;
 
-        App.logManager.debug("Получен ответ: " + status + " " + key + " Method: " + method/* + " Key: " + str*/);
+        App.logManager.debug("Result: " + status + " " + key + " Method: " + method/* + " Key: " + str*/);
 
         switch (status) {
             case STATUS_500:
@@ -129,7 +128,7 @@ public abstract class NetworkCallback {
         request.status = status;
         request.count++;
 
-        // Превышено максимальное количество повторов запроса
+        // Maximum number of retries exceeded
         if (!request.getReload() || request.count > NetworkManager.NETWORK_REFRESH_MAX_COUNT) {
             request.networkCallback.onError(request.status);
             App.nwManager.remove(key);
@@ -140,11 +139,11 @@ public abstract class NetworkCallback {
             return;
         }
 
-        // Оправляем на повтор
+        // Send for repeat
         App.nwManager.refreshFromKey(key, NetworkManager.NETWORK_REFRESH_DELAY * App.nwManager.get(key).count);
     }
 
-    // Только для upload
+    // only for upload
     public void onProgressUpdate(int percent) {
     }
 }

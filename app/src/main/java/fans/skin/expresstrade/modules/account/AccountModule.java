@@ -62,10 +62,10 @@ public class AccountModule {
     // =============================================================================================
 
     public void initial() {
-        // Устанавливаем статус авторизации
+        // Set the authorization status
         setAuthorizeStatus(prefManager.getBoolean(PrefKey.ACCOUNT_ACTIVE));
 
-        // Создаем секрет, если его нет
+        // Create a secret if there is none
         clientSecret = prefManager.getString(PrefKey.ACCOUNT_CLIENT_SECRET);
         if(clientSecret == null) {
             clientSecret = CommonUtils.getHash(32);
@@ -80,13 +80,13 @@ public class AccountModule {
             return;
         }
 
-        // Устанавливаем автопринятие гифтов
-//        setDefaultOptions();
+        // Install Auto Accept GIFT
+        // setDefaultOptions();
 
-        // Выполяем функцию инициализации пользователей
+        // Perform user initialization function
         App.usersModule.initial();
 
-        // Делаем CheckIn
+        // CheckIn
         reqCheckIn();
     }
 
@@ -98,12 +98,13 @@ public class AccountModule {
         twofaCode = code;
     }
 
-    // Получить предметы со всех страниц
+    // Get items from all pages
     public void loadItems(InventoryModel model, Integer app_id) {
         if (!App.eventManager.isInitialed) return;
 
-        // Запрос на получение наших предметов или
-        // Запрос на получение чужих предметов
+        // Request to receive our items or
+        // Request for receiving other items
+
         if (model.ops_id == 0)
             App.accountModule.reqGetItems(1, app_id, new ArrayList<ItemModel.Item>());
         else
@@ -118,28 +119,28 @@ public class AccountModule {
         List<ItemModel.Item> list = new ArrayList<>();
 
 
-        // Заносим всех пользователей в таблицу
+        // Log all users to table
         for(Map.Entry<Long, ItemModel.Item> entry : inv.items.entrySet()) {
             ItemModel.Item item = entry.getValue();
 
-            // Игнорим физуализацию ключей
+            // Ignore key rendering
             if (item.sku == 1)
                 continue;
 
-            // Если элемент не равляется текущем приложению
+            // If the item is not the current application
             if (!item.internal_app_id.equals(app_id))
                 continue;
 
             String rarity = CommonUtils.getRarity(item.color);
 
-            // Если присутствует рарность в исключении
+            // If there is a margin in the exception
             if (rarityExceptions.contains(rarity))
                 continue;
 
             list.add(item);
         }
 
-        // Сортируем массив по цене
+        // Sort the array by price
         Collections.sort(list, new Comparator<ItemModel.Item>() {
             @Override
             public int compare(ItemModel.Item o1, ItemModel.Item o2) {
@@ -155,10 +156,9 @@ public class AccountModule {
         inv.itemsSelected = new ArrayList<>();
     }
 
-    // Устанавливаем предметы локально
+    // Install items locally
     public void setLocalItems(InventoryModel inv, List<ItemModel.Item> items) {
-
-        // Очищаем все
+        // clear all
         inv.items.clear();
         inv.keys.clear();
         inv.keysCount = 0;
@@ -167,12 +167,12 @@ public class AccountModule {
 //        inv.keysSelected = 0;
 //        inv.itemsSelected = new ArrayList<>();
 
-        // Предметы
+        // Items
         for (ItemModel.Item item : items) {
             if (inv.items.containsKey(item.id) || inv.keys.containsKey(item.id))
                 continue;
 
-            // Определяем кол-во ключей и кол-во предметов
+            // Determine the number of keys and the number of items
             if (item.sku == 1) {
                 inv.keys.put(item.id, item);
                 inv.keysCount++;
@@ -183,11 +183,11 @@ public class AccountModule {
             }
         }
 
-        // Очищаем все товары, которых теперь нет
+        // Clear all products that are no longer there.
         clearMissingSelectedItems(inv);
     }
 
-    // Получить суммарную стоимость выбранных элементов
+    // Get the total cost of selected items
     public int getCostSelectedInventory(InventoryModel inv) {
         int sum = 0;
 
@@ -204,8 +204,7 @@ public class AccountModule {
         return sum;
     }
 
-
-    // Получить суммарную стоимость массива предметов с учетом прописанного кол-ва
+    // Get the total value of the array of items, taking into account the prescribed number
     public int getCostItems(List<ItemModel.Item> items) {
         int[] sum = {0, 0}; // {keys, items}
 
@@ -222,7 +221,7 @@ public class AccountModule {
         return sum[0] + sum[1];
     }
 
-    // Получить число ключей
+    // Get the number of keys
     public int getKeysCount(List<ItemModel.Item> items) {
         int count = 0;
 
@@ -233,7 +232,7 @@ public class AccountModule {
         return count;
     }
 
-    // Получить число предметов
+    // Get the items count
     public int getItemsCount(List<ItemModel.Item> items) {
         int count = 0;
 
@@ -244,7 +243,7 @@ public class AccountModule {
         return count;
     }
 
-    // Получить объект ключей
+    // Get key object
     public ItemModel.Item getKeyItem(HashMap<Long, ItemModel.Item> keys) {
         for(Map.Entry<Long, ItemModel.Item> entry : keys.entrySet()) {
             ItemModel.Item item = entry.getValue();
@@ -254,7 +253,7 @@ public class AccountModule {
         return null;
     }
 
-    // Получить объект ключей
+    // Get key object
     public ItemModel.Item getKeyItem(List<ItemModel.Item> items) {
         for(ItemModel.Item item : items) {
             if (item.sku != 1) continue;
@@ -263,7 +262,7 @@ public class AccountModule {
         return null;
     }
 
-    // Получить нужное кол-во id's ключей
+    // Get the required number of id's keys
     public List<Long> getKeyIds(int count, HashMap<Long, ItemModel.Item> keys) {
         List<Long> ids = new ArrayList<>();
         int i = 0;
@@ -281,7 +280,7 @@ public class AccountModule {
         return ids;
     }
 
-    // Получить массив IDS всех выбранных предметов предметы + ключи
+    // Get the IDS array of all selected items + keys
     public List<Long> getTradeIds(InventoryModel inv) {
         List<Long> ids = new ArrayList<>();
 
@@ -302,7 +301,7 @@ public class AccountModule {
     public void clearMissingSelectedItems(InventoryModel inv) {
         List<Long> list = new ArrayList<>();
 
-        // Если в инвентаре есть предмет с ID, тогда добавляем его в массив выбранных товаров
+        // If there is an item with an ID in the inventory, then add it to the array of selected items
         for(Long id : inv.itemsSelected)
             if (inv.items.containsKey(id))
                 list.add(id);
@@ -310,11 +309,11 @@ public class AccountModule {
         inv.itemsSelected = list;
     }
 
-    // Объединить объекты ключей в 1, указав кол-во
+    // Combine key objects in 1, specifying the number
     public List<ItemModel.Item> getKeysSplit(List<ItemModel.Item> items) {
         List<ItemModel.Item> result = new ArrayList<>();
 
-        // Сортируем массив по цене
+        // Sort the array by price
         Collections.sort(items, new Comparator<ItemModel.Item>() {
             @Override
             public int compare(ItemModel.Item o1, ItemModel.Item o2) {
@@ -322,7 +321,7 @@ public class AccountModule {
             }
         });
 
-        // Получаем объект ключей
+        // Get the keys object
         ItemModel.Item key = getKeyItem(items);
         if (key == null) return items;
 
@@ -344,7 +343,7 @@ public class AccountModule {
                 continue;
             }
 
-            // Инкрементируем и удаляем объект
+            // Increment And Delete Object
             keysCount++;
         }
 
@@ -358,7 +357,7 @@ public class AccountModule {
     // REQUEST METHODS
     // =============================================================================================
 
-    // Получить данные профиля
+    // Get profile data
     public void reqTradeGetProfile() {
         NetworkQuery query = new NetworkQuery();
         query.add(Param.WITH_EXTRA, 1);
@@ -384,7 +383,7 @@ public class AccountModule {
 
                 App.eventManager.doEvent(EventType.ON_TRADE_GET_PROFILE_RECEIVED);
 
-                // Записываем в глобальную переменную нам user_id для быстрого доступа
+                // Write user_id to the global variable for quick access.
                 App.USER_ID = model.user.id;
             }
 
@@ -396,7 +395,7 @@ public class AccountModule {
         });
     }
 
-    // Получить предметы пользователя
+    // Get user items
     public void reqGetItems(final Integer page, final Integer app_id, final List<ItemModel.Item> list) {
         App.logManager.debug("reqGetItems");
 
@@ -416,37 +415,33 @@ public class AccountModule {
                 ResponseModel response = (ResponseModel) object;
 
                 if (response.status != 1) {
-                    logManager.error("API вернуло ошибку. " + response.message);
+                    logManager.error("API returned error. " + response.message);
                     return;
                 }
 
-                // Предметы пользователя
+                // User items
                 ItemModel.Items result = (ItemModel.Items) response.response;
                 List<ItemModel.Item> items = result.items;
 
-                // Добавить массив предметов с общий список
+                // Add an array of items with a common list
                 list.addAll(items);
 
-                // Если загрузили все страницы или только текущую
+                // If you have downloaded all the pages or only the current
                 if (response.current_page == null || response.current_page >= response.total_pages) {
 
-                    // Если загрузили полностью инвентарь vgo, грузим стикеры
+                    // If you have downloaded a full vgo inventory, we will ship stickers
                     if (app_id == 1) {
-                        // response.current_page
-                        // Загружаем предметы дальше
                         reqGetItems(1, 12, list);
                         return;
                     }
 
-                    // Если загрузили полностью стикеры, грузим котов
+                    // If you downloaded the stickers completely, we ship the cats
                     if (app_id == 12) {
-                        // response.current_page
-                        // Загружаем предметы дальше
                         reqGetItems(1, 7, list);
                         return;
                     }
 
-                    // Устанавливаем локально массив предметов
+                    // Set up a local array of objects
                     setLocalItems(inventory, list);
 
                     App.eventManager.doEvent(EventType.ON_TRADE_GET_INVENTORY_RECEIVED, 0L);
@@ -454,8 +449,6 @@ public class AccountModule {
                 } else {
                     App.eventManager.doEvent(EventType.ON_TRADE_GET_INVENTORY_PAGE_LOADED, 0L);
 
-                    // response.current_page
-                    // Загружаем предметы дальше
                     reqGetItems(page + 1, app_id, list);
                 }
             }
@@ -469,39 +462,17 @@ public class AccountModule {
         });
     }
 
-    // todo to support
-//    private void setDefaultOptions() {
-//        NetworkQuery query = new NetworkQuery();
-//        query.add(Param.AUTO_ACCEPT_GIFTS, true);
-//
-//        nwManager.req(MethodType.ACCOUNT_UPDATE_PROFILE, query, new NetworkCallback() {
-//            @Override
-//            public void on200(Object object) {
-//                super.on200(object);
-//            }
-//
-//            @Override
-//            public void on400(ErrorModel error) {
-//            }
-//
-//            @Override
-//            public void on403(ErrorModel error) {
-//            }
-//        });
-//    }
-
     // =============================================================================================
     // AUTH METHODS
     // =============================================================================================
 
-    // Получить токен доступа
+    // Get access token
     public void reqGetAccessToken(String clientCode) {
         clientSecret = prefManager.getString(PrefKey.ACCOUNT_CLIENT_SECRET);
 
         byte[] bytes = (APP_CODE + ":" + clientSecret).getBytes();
         String token = Base64.encodeToString(bytes, Base64.NO_WRAP);
 
-        // Устанавливаем токен доступа клиента
         prefManager.setString(PrefKey.ACCOUNT_CLIENT_BASIC_TOKEN, token);
 
         NetworkQuery query = new NetworkQuery();
@@ -514,10 +485,8 @@ public class AccountModule {
                 super.on200(object);
                 AuthorizeModel model = (AuthorizeModel) object;
 
-                // Устанавливаем токены
                 setTokens(model.access_token, model.refresh_token);
 
-                // Устанавливаем статус авторизации
                 setAuthorizeStatus(true);
 
                 App.eventManager.doEvent(EventType.ON_ACCOUNT_ACCESS_TOKEN_RECEIVED);
@@ -531,7 +500,7 @@ public class AccountModule {
         });
     }
 
-    // Получить новый токен доступа на основе токена перезагрузки
+    // Get a new access token based on a reload token
     public void reqGetRefreshToken() {
         String refreshToken = prefManager.getString(PrefKey.ACCOUNT_TOKEN_REFRESH);
 
@@ -540,7 +509,7 @@ public class AccountModule {
         query.add(Param.REFRESH_TOKEN, refreshToken);
         query.add(Param.DURATION, "permanent");
 
-        // Токены обновляются
+        // Tokens are updated
         isUpdatingTokens = true;
 
 
@@ -551,12 +520,11 @@ public class AccountModule {
                 super.on200(object);
                 AuthorizeModel model = (AuthorizeModel) object;
 
-                // Устанавливае токен
+                // Set the token
                 setTokens(model.access_token, null);
 
-                // Повторяем все запросы с 403 ошибкой
+                // Repeat all requests with 403 error
                 App.nwManager.refreshFromStatus(StatusCode.STATUS_403);
-
                 App.eventManager.doEvent(EventType.ON_ACCOUNT_REFRESH_TOKEN_RECEIVED);
 
                 isUpdatingTokens = false;
@@ -621,10 +589,10 @@ public class AccountModule {
         if (refresh_token != null)
             App.prefManager.setString(PrefKey.ACCOUNT_TOKEN_REFRESH, refresh_token);
 
-        App.logManager.info("Токены установлены: AT:" + access_token + " RT:" + refresh_token);
+        App.logManager.info("Tokens installed: AT:" + access_token + " RT:" + refresh_token);
     }
 
-    // Установить активность авторизации профиля
+    // Set profile authorization activity
     public void setAuthorizeStatus(boolean status) {
         if (isAuthorized == status) return;
 
@@ -634,13 +602,13 @@ public class AccountModule {
         prefManager.setBoolean(PrefKey.ACCOUNT_ACTIVE, status);
         App.eventManager.doEvent(status ? EventType.ON_ACCOUNT_ACTIVE : EventType.ON_ACCOUNT_NOT_ACTIVE);
 
-        // Очищаем данные
+        // clear the data
         if (status) {
             App.prefManager.setBoolean(PrefKey.ACCOUNT_ACTIVE, true);
         } else {
             clearAccountInfo();
 
-            // Открываем авторизацию, если активно хотя бы одно активити
+            // Open authorization if at least one activity is active.
             if ((App.mainActivity != null && App.mainActivity.isActive)) {
 
                 Intent intent = new Intent(App.context, StartActivity.class);
@@ -648,7 +616,7 @@ public class AccountModule {
                 App.context.startActivity(intent);
             }
 
-            // Закрываем все активити
+            // Close all activations
             if (App.mainActivity != null)
                 App.mainActivity.finish();
         }
@@ -658,7 +626,7 @@ public class AccountModule {
         prefManager.remove(PrefKey.ACCOUNT_TOKEN_ACCESS);
         prefManager.remove(PrefKey.ACCOUNT_TOKEN_REFRESH);
 
-        // Очищаем таблицы
+        // Clear the tables
 //        App.usersModule.emptyTables();
     }
 }

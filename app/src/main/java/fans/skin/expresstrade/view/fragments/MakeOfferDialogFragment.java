@@ -108,7 +108,6 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
         bt_close.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Закрываем диалог
                 getDialog().dismiss();
             }
         });
@@ -129,7 +128,6 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
                     }
                 }, 1000);
 
-                // Открываем окно инвентаря пользователя
                 userInventoryDialog = App.dialogViewer.openUserInventory(getChildFragmentManager(), offer.recipient_ops_id);
             }
         });
@@ -172,7 +170,6 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
                 offer = App.tradeModule.makeOffer;
                 if (offer == null) return;
 
-                // Нет никаких товаров для создания оффера
                 if (!isMakeExist()) {
                     Toast.makeText(App.context, "No items or keys selected.", Toast.LENGTH_SHORT).show();
                     return;
@@ -186,7 +183,7 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
             }
         });
 
-        // Рендерим инфу
+        // render info
         render();
 
         return view;
@@ -211,7 +208,7 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
     public void render() {
         offer = App.tradeModule.makeOffer;
 
-        // Получаем объект получателя
+        // Get the recipient object
         UsersTable recipient = App.usersModule.users.get(offer.recipient_ops_id);
         if (recipient == null) return;
 
@@ -263,13 +260,13 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
         bt_offer_accept.setBackgroundResource(isMakeExist() ? R.drawable.bg_button_big_green : R.drawable.bg_button_red_dark);
     }
 
-    // Сформировать объект предметов и визуализировать его во фрагменте
+    // To form an object of objects and visualize it in a fragment
     private void selectedInventoryViewItems(InventoryModel inventory, int title) {
         List<ItemModel.Item> items = new ArrayList<>();
 
         App.logManager.debug("selectedInventoryViewItems " + inventory.items.size() + " " + inventory.itemsSelected.size());
 
-        // Обходим все выбранные товары
+        // We go around all selected products
         for (Long id : inventory.itemsSelected) {
             ItemModel.Item item = inventory.items.get(id);
 
@@ -277,11 +274,11 @@ public class MakeOfferDialogFragment extends AppDialogFragment implements View.O
 
             if (item == null) continue;
 
-            // Добавляем предмет
+            // add item
             items.add(item);
         }
 
-        // Сортируем массив по цене
+        // sort by price
         Collections.sort(items, new Comparator<ItemModel.Item>() {
             @Override
             public int compare(ItemModel.Item o1, ItemModel.Item o2) {

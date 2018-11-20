@@ -13,7 +13,7 @@ public class PrefManager {
     // CONSTANTS
     // =============================================================================================
 
-    public final static int COUNTER_HISTORY_COUNT = 30; // 30 элементов в истории
+    public final static int COUNTER_HISTORY_COUNT = 30; // 30 items in history
 
     // =============================================================================================
     // VARIABLES
@@ -62,8 +62,8 @@ public class PrefManager {
         PrefKey(String s, boolean isAccountAlias) {
             this.str = s;
 
-            // Привязать ли к ключу строки id текущего пользователя.
-            // Что бы при логине под другим профилем настройки были разными для разных профилей
+            // Bind to the key the string id of the current user, so that when logging in under a different profile,
+            // the settings are different for different profiles
             this.isAccountAlias = isAccountAlias;
         }
     }
@@ -180,7 +180,7 @@ public class PrefManager {
     // OTHER
     // =============================================================================================
 
-    // Добавить значение времени в параметр
+    // Add time value to parameter
     public void incrementTimeStack(PrefKey prefKey) {
         String timeStack = App.prefManager.getString(prefKey);
         String[] timeStackSplit = timeStack != null ? timeStack.split(",") : new String[]{""};
@@ -189,7 +189,7 @@ public class PrefManager {
         if (list.size() > COUNTER_HISTORY_COUNT)
             list.remove(10);
 
-        // Записываем стек с троку параметра
+        // Write the stack with the parameter's string.
         App.prefManager.setString(prefKey, StringUtils.join(list, ","));
     }
 
@@ -203,7 +203,7 @@ public class PrefManager {
         return timeStackSplit.length;
     }
 
-    // Получить текущее количество элементов в истории и разницу между последним и "int count" значением
+    // Get the current number of items in the history and the difference between the last and the "int count" value
     public long getTimeStackDiff(PrefKey prefKey, int index) {
         String timeStack = App.prefManager.getString(prefKey);
 

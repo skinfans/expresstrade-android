@@ -210,7 +210,7 @@ public class OffersFragment extends AppFragment implements View.OnClickListener 
                 model = (AcceptModel) object.object;
                 if (!model.isAcceptOffer || model.id == null || model.id == 0) return;
 
-                // Выполняем запрос
+                // run request
                 App.tradeModule.reqAcceptOffer(model.id, true);
 
                 break;

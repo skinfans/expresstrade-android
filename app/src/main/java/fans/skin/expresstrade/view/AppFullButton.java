@@ -82,7 +82,7 @@ public class AppFullButton extends RelativeLayout {
 
         pb.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
 
-        // По умолчанию
+        // default
         setSize(buttonSize);
 
         if (buttonText != 0)

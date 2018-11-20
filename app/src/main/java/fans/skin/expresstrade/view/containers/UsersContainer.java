@@ -80,7 +80,7 @@ public class UsersContainer {
     // GENERAL METHODS
     // =============================================================================================
 
-    // Получает из БД список юзеров
+    // Receives a list of users from the database
     public void doLoadData() {
         App.logManager.debug("doLoadData " + loaderManager);
 
@@ -95,7 +95,7 @@ public class UsersContainer {
 //        usersAdapter.notifyItems();
 //    }
 
-    // Устанвить обработчик события
+    // Set event handler
     public void setOnDataLoaderListener(OnDataEventsListener onDataEventsListener) {
         dataLoader.onLoaderListener = onDataEventsListener;
     }
@@ -104,7 +104,7 @@ public class UsersContainer {
         dataLoader.onLoadFinished(null, new ArrayList());
     }
 
-    // Установить текущего чела, которого мы нашли
+    // Set the current brow we found
     public void setCurrentSearchOpsId(Long ops_id) {
         search_ops_id = ops_id;
     }
@@ -132,7 +132,7 @@ public class UsersContainer {
             this.adapter = adapter;
         }
 
-        // Все действия выполняемые в бэкграунде
+        // All actions performed in the background
         @Override
         public List loadInBackground() {
             List list = onLoaderListener.onLoad();
@@ -142,17 +142,17 @@ public class UsersContainer {
             return onLoaderListener != null ? list : null;
         }
 
-        // Создание лоадера
+        // Create loader
         @Override
         public Loader<List> onCreateLoader(int id, Bundle args) {
             App.logManager.debug("onCreateLoader");
             return this;
         }
 
-        // Лоадер отработал и возвращает значение
+        // Loader worked and returns value
         @Override
         public void onLoadFinished(Loader<List> loader, List data) {
-            // loader равняется null только тогда, когда мы выполняем метод вручную при отсутствии интернета
+            // loader equals null only when we run the method manually in the absence of the Internet
 
             App.logManager.debug("onLoadFinished " + data.size());
 

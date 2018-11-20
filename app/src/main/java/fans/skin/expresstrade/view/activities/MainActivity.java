@@ -150,23 +150,23 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
         appPagerAdapter.addFragment(new FrameInventoryFragment());
         appPagerAdapter.addFragment(new FrameOffersFragment());
 
-        viewPager.setAdapter(appPagerAdapter); // Устанавливаем адаптер
+        viewPager.setAdapter(appPagerAdapter); // Install the adapter
         viewPager.setOffscreenPageLimit(3);
 
         sliderWidth = App.display.widthPixels / 3;
         slider.getLayoutParams().width = sliderWidth;
 
-        // Устанавливаем обработку событий
+        // Set event handling
         viewPager.setOnPageChangeListener(this);
 
-        // Устанавливаем текущий экран
+        // Install the current screen
         viewPager.setCurrentItem(defaultFrame);
         setSliderIndex(defaultFrame, 0);
 
         setPagingEnable(false);
     }
 
-    // Оболочка для удаления фрагментов
+    // Shell for removing fragments
     public boolean popFragment(int i, boolean anyway) {
         return App.fragmentViewer.popLast(i, anyway);
     }
@@ -176,7 +176,7 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
         return popFragment(viewPager.getCurrentItem(), anyway);
     }
 
-    // Включить/Выключить скрол viewPager
+    // Enable / Disable scrolling viewPager
     public void setPagingEnable(boolean paging) {
         App.logManager.debug("setPagingEnable " + paging);
         viewPager.setPagingEnabled(paging);
@@ -186,7 +186,7 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
     protected void onResume() {
         super.onResume();
 
-        // Делаем CheckIn
+        // CheckIn
         App.accountModule.reqCheckIn();
     }
 
@@ -194,12 +194,12 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
     // GENERAL METHODS
     // =============================================================================================
 
-    // Установить позицию скрола
+    // Set scroll position
     private void setSliderIndex(int index, int time) {
         slider.animate().translationX(index * sliderWidth).setDuration(time);
     }
 
-    // Открыть окно открытия
+    // Open opening window
     public void doOpenAccept(AcceptModel model) {
         acceptModel = model;
 
@@ -217,7 +217,7 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
         }, 30);
     }
 
-    // Закрыть окно открытия
+    // Close the opening window
     public void doCloseAccept() {
         acceptModel = null;
         block_accept.animate().alpha(0f).translationY(40 * App.display.density).setDuration(200).start();
@@ -256,7 +256,7 @@ public class MainActivity extends AppActivity implements AppViewPager.OnPageChan
         }
     }
 
-    // Подтвердить обмен
+    // Confirm exchange
     private void doAcceptConfirm() {
         if (et_accept_input.getText().toString().equals("")) return;
 
