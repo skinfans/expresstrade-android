@@ -1,0 +1,37 @@
+<resources>
+    <!-- General -->
+    <dimen name="title">27sp</dimen>
+    <dimen name="title_h1">23sp</dimen>
+    <dimen name="title_h2">21sp</dimen>
+    <dimen name="title_h3">19sp</dimen>
+    <dimen name="title_marginTop">37dp</dimen>
+    <dimen name="title_marginLeft">12dp</dimen>
+    <dimen name="title_icon_marginLeft">57dp</dimen>
+
+    <!-- Users -->
+    <dimen name="users_item_height">55dp</dimen>
+    <dimen name="users_button_size">36dp</dimen>
+
+    <dimen name="fg_swines_padding_top">110dp</dimen>
+    <dimen name="fg_profile_padding_top">283dp</dimen>
+    <dimen name="fg_profile_panel_height">72dp</dimen>
+    <dimen name="fg_profile_panel_margin">23dp</dimen>
+
+    <!-- CAP -->
+    <dimen name="cap_title_sp">36sp</dimen>
+    <dimen name="cap_descr_sp">18sp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="default_header_margin">56dp</dimen>
+    <dimen name="grid_column_width">96dp</dimen>
+
+    <!-- BUTTONS -->
+    <dimen name="button_radius">50dp</dimen>
+
+    <dimen name="hr_height">5dp</dimen>
+</resources>

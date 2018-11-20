@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- BACKGROUND -->
+    <color name="bg">#2f3138</color>
+    <color name="bg_auth">#1c1d21</color>
+    <color name="bg_content">#202328</color>
+    <color name="bg_content_active">#122632</color>
+    <color name="bg_content_unactive">#282020</color>
+
+
+
+    <color name="white">#fff</color>
+    <color name="gray">#6b6b6b</color>
+    <color name="gray_light">#a1a1a1</color>
+    <color name="gray_dark">#fe36383d</color>
+    <color name="black">#000</color>
+
+    <color name="colorPrimary">#478e8e</color>
+    <color name="colorPrimaryDark">#135b5b</color>
+    <color name="colorAccent">#aa2345</color>
+
+    <color name="accent">#1bbcb6</color>
+    <color name="accentMain">#198181</color>
+    <color name="accentOrange">#6949a9</color>
+    <!--<color name="accentOrange">#d66638</color>-->
+    <color name="colorRipple">#3b000000</color>
+
+    <color name="orange">#fabb00</color>
+    <color name="gold">#ffe797</color>
+    <color name="green">#14a268</color>
+    <color name="blue">#2291ce</color>
+    <color name="red">#8c223d</color>
+    <color name="redDark">#51232f</color>
+
+    <color name="accentLightRed">#e71841</color>
+
+    <color name="service">#3c5d60</color>
+</resources>

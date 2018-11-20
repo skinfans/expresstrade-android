@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">ExpressTrade</string>
+
+    <string name="dev_by">Developed by Skinfans.com</string>
+    <string name="bt_signin_ops">SIGN IN THROUGH OPSKINS</string>
+
+    <string name="bt_select_all">Select all</string>
+    <string name="bt_accept">Accept</string>
+    <string name="confirm">CONFIRM OFFER</string>
+    <string name="enter_code">Enter Two-Factor Authentication Code</string>
+    <string name="enter_code_invalid">Invalid data</string>
+    <string name="enter_code_offer_sent">Offer sent!</string>
+    <string name="bt_create_offer">Create offer</string>
+    <string name="bt_make_offer">Make offer</string>
+    <string name="bt_add_to_offer">Select items</string>
+    <string name="bt_convent_to_keys">Convert to keys</string>
+    <string name="bt_close">Close</string>
+    <string name="bt_offer_cancel">Cancel</string>
+    <string name="bt_offer_close">Cancel offer</string>
+    <string name="bt_offer_remove">Remove</string>
+    <string name="bt_users_select">Select</string>
+    <string name="bt_save_link">Save link</string>
+    <string name="bt_change">Change</string>
+    <string name="bt_inventory">Inventory</string>
+    <string name="bt_view">View</string>
+    <string name="bt_back">Back</string>
+    <string name="bt_offer">Offer</string>
+    <string name="bt_to_offer">To offer</string>
+    <string name="ok">Okay</string>
+    <string name="bt_offers_new">News offers</string>
+    <string name="bt_offers_history">History</string>
+    <string name="bt_offers_active">New offers</string>
+
+    <string name="title_users_search">Results</string>
+    <string name="title_users_featured">Favorites</string>
+    <string name="title_users_last">Last</string>
+
+    <string name="title_offer_give">Give</string>
+    <string name="title_offer_get">Get</string>
+
+    <string name="title_offer_make_give">You will <b>give</b></string>
+    <string name="title_offer_make_get">You will <b>get</b></string>
+
+    <string name="items_rarity_gold">Gold</string>
+    <string name="items_rarity_red">Red</string>
+    <string name="items_rarity_pink">Pink</string>
+    <string name="items_rarity_purple">Purple</string>
+    <string name="items_rarity_blue">Blue</string>
+</resources>

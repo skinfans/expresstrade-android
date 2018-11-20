@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2f3238"
+    android:orientation="vertical">
+
+    <!--BODY-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!--OFFER_BLOCK-->
+        <LinearLayout
+            android:id="@+id/block_offer"
+            android:background="@color/bg_content_active"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:layout_margin="10dp"
+            android:layout_height="80dp">
+
+            <!--DESCR-->
+            <LinearLayout
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Choosing user"
+                    android:textAllCaps="true"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="To send 53 items"
+                        android:textColor="#ccc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:text="and 13 keys"
+                        android:layout_marginLeft="6dp"
+                        android:textColor="#ccc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <!--REMOVE-->
+            <fans.skin.expresstrade.view.AppButton
+                android:id="@+id/bt_offer_close"
+                android:background="@drawable/bg_button_red"
+                app:sText="@string/bt_offer_close"
+                android:clickable="true"
+                android:layout_marginTop="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp" />
+
+        </LinearLayout>
+
+        <!--SEARCH-->
+        <LinearLayout
+            android:id="@+id/ll_search_block"
+            android:background="@color/bg_content_active"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <!--SEARCH TITLE-->
+                <TextView
+                    android:text="Search for friends"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textAllCaps="true"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <ProgressBar
+                    android:id="@+id/pb_search"
+                    android:alpha="0"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"/>
+
+            </LinearLayout>
+
+            <!--SEARCH INPUT-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+
+                <!--INPUT-->
+                <EditText
+                    android:id="@+id/et_search_input"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:textSize="13sp"
+                    android:textColor="@color/white"
+                    android:background="@color/bg_auth"
+                    android:maxLines="1"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="Enter WAX ExpressTrade URL"
+                    android:textColorHint="#8c8c8c"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_height="35dp"/>
+
+                <!--SEARCH BUTTON-->
+                <fans.skin.expresstrade.view.AppButton
+                    android:id="@+id/bt_search"
+                    android:background="@drawable/bg_button_service"
+                    app:sIcon="@drawable/ic_search"
+                    android:clickable="true"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="60dp"
+                    android:layout_height="35dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <fans.skin.expresstrade.view.AppSwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false">
+
+            <!--CONTENT-->
+            <fans.skin.expresstrade.view.AppRecyclerView
+                android:id="@+id/list_users"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:layout_marginTop="10dp"
+                android:clipChildren="false"
+                android:scrollbars="vertical"/>
+
+        </fans.skin.expresstrade.view.AppSwipeRefreshLayout>
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/cap_no_friends"
+        android:src="@drawable/ic_no_friends"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:alpha="0.2"
+        android:layout_width="170dp"
+        android:layout_height="170dp"/>
+
+</RelativeLayout>

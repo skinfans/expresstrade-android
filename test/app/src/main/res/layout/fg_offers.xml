@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2f3238"
+    android:orientation="vertical">
+
+    <!--BODY-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <!--2FA-->
+        <LinearLayout
+            android:id="@+id/ll_search_block"
+            android:background="#63304b"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="38dp">
+
+
+                <!--SEARCH TITLE-->
+                <TextView
+                    android:text="2FA"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:layout_marginLeft="10dp"
+                    android:textAllCaps="true"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:src="@drawable/ic_settings"
+                    android:layout_marginTop="-1dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:background="#502e3f"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <!--CODE-->
+                <TextView
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="--- ---"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"/>
+
+                <!--PROGRESS TIMEOUT-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="3dp"
+                        android:background="@color/white"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="-4dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <LinearLayout
+                android:id="@+id/ll_title"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <!--TextView
+                    android:id="@+id/tv_items_count"
+                    android:text="0"
+                    android:textSize="17sp"
+                    android:textColor="@color/accent"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="6dp"
+                    android:textAllCaps="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/-->
+
+                <TextView
+                    android:text="Offers"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:textAllCaps="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <fans.skin.expresstrade.view.AppButton
+                    android:id="@+id/bt_offers_new"
+                    android:background="@drawable/bg_button_green"
+                    app:sText="@string/bt_offers_active"
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp" />
+
+
+                <fans.skin.expresstrade.view.AppButton
+                    android:id="@+id/bt_history"
+                    android:background="@drawable/bg_button_service"
+                    app:sText="@string/bt_offers_history"
+                    android:clickable="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp" />
+
+                <fans.skin.expresstrade.view.AppButton
+                    android:id="@+id/bt_cancel"
+                    android:background="@drawable/bg_button_red"
+                    app:sIcon="@drawable/ic_cancel"
+                    android:visibility="gone"
+                    android:layout_marginLeft="10dp"
+                    android:clickable="true"
+                    android:layout_width="60dp"
+                    android:layout_height="35dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <fans.skin.expresstrade.view.AppSwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:clipToPadding="false"
+            android:clipChildren="false">
+
+            <!--CONTENT-->
+            <fans.skin.expresstrade.view.AppRecyclerView
+                android:id="@+id/list_users"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:layout_marginTop="10dp"
+                android:clipChildren="false"
+                android:scrollbars="vertical"/>
+
+        </fans.skin.expresstrade.view.AppSwipeRefreshLayout>
+
+        <TextView
+            android:text="HELLO!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

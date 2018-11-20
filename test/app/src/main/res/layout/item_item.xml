@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?><!-- android.support.v7.widget.CardView /-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp"
+    android:orientation="vertical">
+
+    <!-- Верхушка -->
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:background="@color/bg_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_line_rarity"
+            android:background="#ccc"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="3dp"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_wear"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:alpha="0.5"
+                android:textSize="9sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="-3dp"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/preview_min"
+            android:layout_margin="25dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/preview_svg"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="6dp"/>
+
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="20sp"
+            android:background="@color/bg_content"
+            android:textColor="@color/orange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!--TIMER-->
+        <RelativeLayout
+            android:id="@+id/rl_timer"
+            android:background="#7917171b"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:src="@drawable/ic_clock"
+                android:layout_centerInParent="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_select"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_toggle_disabled"
+            android:visibility="visible"
+            android:alpha="0"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+</LinearLayout>

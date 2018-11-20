@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bg"
+    android:layout_height="match_parent"
+    tools:context=".view.activities.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:background="@color/bg_auth">
+
+                <ImageView
+                    android:id="@+id/bt_menu_web"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_news"/>
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="-1dp"
+                    android:src="@drawable/img_logo_expresstrade"/>
+
+                <ImageView
+                    android:id="@+id/bt_menu_logout"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_logout"/>
+
+                <!--ImageView
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:src="@drawable/ic_settings"/-->
+
+            </LinearLayout>
+
+            <fans.skin.expresstrade.view.AppViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:overScrollMode="never"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/navigation"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="center"
+                android:background="@color/bg_auth">
+
+                <RelativeLayout
+                    android:tag="nav_users"
+                    android:id="@+id/nav_users"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@drawable/ic_friends"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:tag="nav_inventory"
+                    android:id="@+id/nav_inventory"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@drawable/ic_inventory"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:tag="nav_offers"
+                    android:id="@+id/nav_offers"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_offers"/>
+
+                    <ImageView
+                        android:id="@+id/iv_indicator_new_offers"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:visibility="gone"
+                        android:layout_centerInParent="true"
+                        android:translationY="-10dp"
+                        android:translationX="22dp"
+                        android:src="@drawable/bg_button_radius_green"/>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/slider"
+                android:background="@color/accentMain"
+                android:layout_width="50dp"
+                android:layout_height="3dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/block_accept"
+            android:visibility="gone"
+            android:alpha="0"
+            android:translationY="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:background="#89000000"
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <LinearLayout
+                android:id="@+id/ll_accept"
+                android:clickable="true"
+                android:background="@color/bg"
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_accept_title"
+                        android:text="Offer confirmation"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:textAllCaps="true"
+                        android:textSize="17sp"
+                        android:textColor="@color/white"
+                        android:layout_height="wrap_content"/>
+
+                    <!--BACK-->
+                    <fans.skin.expresstrade.view.AppButton
+                        android:id="@+id/bt_accept_back"
+                        android:background="@drawable/bg_button_red"
+                        app:sIcon="@drawable/ic_cancel"
+                        android:clickable="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_accept_message"
+                    android:gravity="center"
+                    android:textColor="@color/gray_light"
+                    android:text="@string/enter_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <RelativeLayout
+                    android:layout_width="150dp"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="18dp"
+                    android:layout_gravity="center"
+                    android:layout_height="47dp">
+
+                    <EditText
+                        android:id="@+id/et_accept_input"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:background="@color/bg_content"
+                        android:maxLength="6"
+                        android:textStyle="bold"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:layout_width="150dp"
+                        android:layout_height="47dp"/>
+
+                    <!--ICON ERROR-->
+                    <ImageView
+                        android:id="@+id/iv_accept_code_complete"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:src="@drawable/ic_shield_true"/>
+
+
+                    <!--ICON ERROR-->
+                    <ImageView
+                        android:id="@+id/iv_accept_code_error"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:alpha="0"
+                        android:src="@drawable/ic_shield_false"/>
+
+                </RelativeLayout>
+
+                <fans.skin.expresstrade.view.AppFullButton
+                    android:id="@+id/bt_accept"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:background="@drawable/bg_button_big_green"
+                    android:layout_gravity="bottom"
+                    android:clickable="true"
+                    android:gravity="center"
+                    app:sText="@string/confirm"
+                    app:sIcon="@drawable/img_logo_opskins"/>
+
+
+                <fans.skin.expresstrade.view.AppFullButton
+                    android:id="@+id/bt_accept_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:visibility="gone"
+                    android:background="@drawable/bg_button_big_green"
+                    android:layout_gravity="bottom"
+                    android:clickable="true"
+                    android:gravity="center"
+                    app:sText="@string/bt_close"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

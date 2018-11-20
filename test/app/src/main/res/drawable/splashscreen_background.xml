@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/bg_auth" />
+
+
+    <item android:top="-80dp">
+        <bitmap android:src="@drawable/logo_exptrd"
+                android:gravity="center" />
+    </item>
+    <item
+        android:bottom="80dp">
+        <bitmap android:src="@drawable/logo_skinfans"
+                android:gravity="bottom" />
+    </item>
+
+</layer-list>

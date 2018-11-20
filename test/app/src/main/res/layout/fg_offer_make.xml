@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2f3238"
+    android:orientation="vertical">
+
+    <!--BODY-->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--TOP PANEL-->
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--USER-->
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="New Offer"
+                    android:textColor="@color/white"
+                    android:textAllCaps="true"
+                    android:textSize="17sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <!--CLOSE-->
+            <fans.skin.expresstrade.view.AppButton
+                android:id="@+id/bt_close"
+                android:background="@drawable/bg_button_red"
+                app:sText="@string/bt_back"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp" />
+        </LinearLayout>
+
+        <!--CONTENT-->
+        <LinearLayout
+            android:id="@+id/content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--RECIPIENT-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--RECIPIENT TITLE-->
+                <TextView
+                    android:text="User"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+
+                <!--RECIPIENT BLOCK -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/bg_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_recipient_avatar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"/>
+
+                    <TextView
+                        android:id="@+id/tv_recipient_name"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <!--SELECT-->
+                        <fans.skin.expresstrade.view.AppButton
+                            android:id="@+id/bt_recipient_view"
+                            android:background="@drawable/bg_button_service"
+                            app:sText="@string/bt_view"
+                            android:clickable="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ITEMS MINE-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--RECIPIENT TITLE-->
+                <TextView
+                    android:text="@string/title_offer_make_give"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+
+                <!--RECIPIENT BLOCK -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/bg_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--RECIPIENT NO ITEMS DATA-->
+                    <LinearLayout
+                        android:id="@+id/ll_mine_not_items_cap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textColor="@color/gray"
+                            android:text="No items selected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <!--RECIPIENT ITEMS DATA-->
+                    <LinearLayout
+                        android:id="@+id/ll_mine_items_info"
+                        android:gravity="center_vertical"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <!--VIEW PARTNER SELECTED ITEMS -->
+                        <fans.skin.expresstrade.view.AppButton
+                            android:id="@+id/bt_mine_selected_view"
+                            android:background="@drawable/bg_button_service"
+                            app:sIcon="@drawable/ic_eye"
+                            android:clickable="true"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp" />
+
+                        <!--ITEMS/KEYS COUNTERS-->
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+
+                            <LinearLayout
+                                android:id="@+id/ll_mine_keys"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_mine_keys_count"
+                                    android:textColor="@color/orange"
+                                    android:text="0"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:textColor="#ccc"
+                                    android:text="keys"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_mine_items"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_mine_items_count"
+                                    android:textColor="@color/accent"
+                                    android:text="0"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:textColor="#ccc"
+                                    android:text="items"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_mine_select_cost"
+                            android:text="$0.00"
+                            android:textSize="22sp"
+                            android:textColor="@color/gray"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:src="@drawable/ic_arrow_send"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ITEMS RECIPIENT-->
+            <LinearLayout
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--RECIPIENT TITLE-->
+                <TextView
+                    android:text="@string/title_offer_make_get"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"/>
+
+                <!--RECIPIENT BLOCK -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@color/bg_content"
+                    android:layout_marginBottom="4dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!--RECIPIENT NO ITEMS DATA-->
+                    <LinearLayout
+                        android:id="@+id/ll_rec_not_items_cap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textColor="@color/gray"
+                            android:text="No items selected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <!--RECIPIENT ITEMS DATA-->
+                    <LinearLayout
+                        android:id="@+id/ll_rec_items_info"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <!--VIEW PARTNER SELECTED ITEMS -->
+                        <fans.skin.expresstrade.view.AppButton
+                            android:id="@+id/bt_partner_selected_view"
+                            android:background="@drawable/bg_button_service"
+                            app:sIcon="@drawable/ic_eye"
+                            android:clickable="true"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp" />
+
+                        <!--ITEMS/KEYS COUNTERS-->
+                        <LinearLayout
+                            android:layout_marginLeft="10dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:id="@+id/ll_rec_keys"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_rec_keys_count"
+                                    android:textColor="@color/orange"
+                                    android:text="0"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:textColor="#ccc"
+                                    android:text="keys"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_rec_items"
+                                android:orientation="horizontal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/tv_rec_items_count"
+                                    android:textColor="@color/accent"
+                                    android:text="0"
+                                    android:textStyle="bold"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:textColor="#ccc"
+                                    android:text="items"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_rec_select_cost"
+                            android:text="$0.00"
+                            android:textSize="22sp"
+                            android:textColor="@color/gray"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+
+                        <ImageView
+                            android:src="@drawable/ic_arrow_get"
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!--BUTTON-->
+        <LinearLayout
+            android:id="@+id/bt_offer_accept"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/redDark"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/bt_make_offer"/>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_arrow"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

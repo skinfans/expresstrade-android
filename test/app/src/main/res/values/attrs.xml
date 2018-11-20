@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- COMMON -->
+    <attr name="sText" format="reference"/>
+    <attr name="sIcon" format="reference"/>
+    <attr name="sSwitch" format="boolean"/>
+
+    <!-- ******* -->
+
+    <!-- AppIconButton -->
+    <declare-styleable name="AppIconButton">
+        <attr name="sIcon"/>
+    </declare-styleable>
+
+    <!-- AppButton -->
+    <declare-styleable name="AppButton">
+        <attr name="sSize" format="enum">
+            <enum name="big" value="0"/>
+            <enum name="small" value="1"/>
+        </attr>
+        <attr name="sText"/>
+        <attr name="sIcon"/>
+    </declare-styleable>
+
+    <!-- SquaredImageView -->
+    <declare-styleable name="SquaredImageView">
+        <attr name="sByWidth" format="boolean"/>
+    </declare-styleable>
+
+    <!-- LiView -->
+    <declare-styleable name="LiView">
+        <attr name="sText"/>
+        <attr name="sIcon"/>
+        <attr name="sSwitch"/>
+    </declare-styleable>
+</resources>

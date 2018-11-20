@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- CONTENT -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:background="@color/bg"
+            android:layout_weight="1"
+            android:layout_height="0dp">
+
+            <WebView
+                android:id="@+id/webView"
+                android:background="@color/bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+        <fans.skin.expresstrade.view.AppFullButton
+            android:id="@+id/bt_close"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:background="@drawable/bg_button_red_dark"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:gravity="center"
+            app:sText="@string/bt_close"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

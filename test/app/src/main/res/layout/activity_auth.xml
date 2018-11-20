@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_auth"
+    tools:context=".view.activities.AuthActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_logos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="-80dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/img_logo_wax"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:alpha="0"
+                android:src="@drawable/img_logo_wax"
+                android:gravity="center"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/img_logo_expresstrade"/>
+        </LinearLayout>
+
+        <!-- Button -->
+        <fans.skin.expresstrade.view.AppFullButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="180dp"
+            android:background="@drawable/bg_button_big_green"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:alpha="0"
+            app:sText="@string/bt_signin_ops"
+            app:sSize="small"
+            app:sIcon="@drawable/img_logo_opskins"/>
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:alpha="0.6"
+            android:layout_marginBottom="13dp"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="130dp"
+                android:layout_height="35dp"
+                android:src="@drawable/img_logo_skinfans"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="true"
+                android:layout_marginTop="0dp"
+                android:textColor="#fff"
+                android:textSize="10sp"
+                android:text="@string/dev_by"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

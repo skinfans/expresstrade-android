@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/rl_main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2f3238"
+    android:orientation="vertical">
+
+    <!--TOP PANEL-->
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--USER-->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:textColor="@color/white"
+                android:textAllCaps="true"
+                android:textSize="17sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!--CLOSE-->
+        <fans.skin.expresstrade.view.AppButton
+            android:id="@+id/bt_close_top"
+            android:background="@drawable/bg_button_red"
+            app:sText="@string/bt_back"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp" />
+    </LinearLayout>
+
+    <!--RECIPIENT BLOCK -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/bg_content"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_rec_items_info"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--ITEMS/KEYS COUNTERS-->
+            <LinearLayout
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_keys"
+                    android:orientation="horizontal"
+                    android:layout_marginRight="14dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_keys_count"
+                        android:textColor="@color/orange"
+                        android:text="0"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textColor="#ccc"
+                        android:text="keys"
+                        android:layout_marginLeft="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_items"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_items_count"
+                        android:textColor="@color/accent"
+                        android:text="0"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textColor="#ccc"
+                        android:text="items"
+                        android:layout_marginLeft="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_select_cost"
+                        android:text="$0.00"
+                        android:textSize="22sp"
+                        android:textColor="@color/gray"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <fans.skin.expresstrade.view.AppSwipeRefreshLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="visible"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <fans.skin.expresstrade.view.AppRecyclerView
+                android:id="@+id/list_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="-4dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:clipChildren="false"
+                android:scrollbars="vertical"/>
+
+        </LinearLayout>
+
+
+    </fans.skin.expresstrade.view.AppSwipeRefreshLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bt_close"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/green"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bt_close"/>
+    </LinearLayout>
+
+
+</LinearLayout>
