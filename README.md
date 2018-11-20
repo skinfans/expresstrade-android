@@ -8,6 +8,6 @@ The **./app** folder contains all the necessary data for building a project in A
 - **./app/src/main/java** - all project code (core, activities, fragments, ...)
 - **./app/src/main/res** - all project resources (icons, images, ...)
 
-### Glance to us:
+### Visit us on:
 - Site: https://skin.fans
 - Twitter: https://twitter.com/skinfans
