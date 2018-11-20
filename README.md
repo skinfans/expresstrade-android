@@ -4,9 +4,9 @@
 Sure, you could download source code to look through or even try it.
 
 The **./app** folder contains all the necessary data for building a project in Android Studio.
-- **./app/libs** - the folder contains the library for converting svg to png, used to render the CryptoKitties category.
 - **./app/src/main/java** - all project code (core, activities, fragments, ...)
 - **./app/src/main/res** - all project resources (icons, images, ...)
+- **./app/libs** - the folder contains the library for converting svg to png, used to render the CryptoKitties category.
 
 ### Visit us on:
 - Site: https://skin.fans
