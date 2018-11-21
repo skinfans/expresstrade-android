@@ -25,3 +25,4 @@ The **./app** folder contains all the necessary data for building a project in A
 ## Visit us on:
 - Site: https://skin.fans
 - Twitter: https://twitter.com/skinfans
+- Android app: https://play.google.com/store/apps/details?id=fans.skin.expresstrade
