@@ -8,7 +8,7 @@ The **./app** folder contains all the necessary data for building a project in A
 - **./app/src/main/res** - all project resources (icons, images, ...)
 - **./app/libs** - the folder contains the library for converting svg to png, used to render the CryptoKitties category.
 
-## Preview:
+## Screenshots:
 ![Screenshots](screenshots/collage.jpg "Some application screens")
 
 ![Screenshot](screenshots/screen_1.jpg "Application Inventory screen")
